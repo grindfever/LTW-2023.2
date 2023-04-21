@@ -1,0 +1,232 @@
+.register{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ height:100vh;
+ padding:10px;
+ background: linear-gradient(to bottom right, #FFB6C1, #87CEEB);
+}
+
+.signup .title{
+ font-size: 2rem;
+ position: relative;
+ margin-top:-10px;
+ margin-bottom:20px;
+} 
+
+.signup{
+ height:65%;
+ width:100%;
+ max-width:1000px;
+ background-color:white;
+ padding:30px;
+ padding-bottom:0px;
+ border-radius:5px;
+}
+
+.signup form .user-info{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ grid-gap:30px;
+ font-size:1.4rem;
+}
+.Projects h1{
+  background-color:#FFB6C1;
+  padding-top:10px;
+  padding-left:10px;
+  
+}
+.Projects{
+  background-color: #FFB6C1;
+  border-top: 3px solid #a63535;
+  border-radius: 10px;
+  padding-left:5px;
+  
+}
+#MealMatch {
+  border-top: 3px double #a63535;
+  border-left:3px double #a63535;
+  border-bottom: 3px double #a63535;
+  border-right:3px double #a63535;
+  padding-left:20px;
+  margin-right: 4px;
+  margin-bottom: 3px;
+}
+#MealMatch p{
+  padding-left:10px;
+}
+#MyMentor {
+  border-top: 3px double #a63535;
+  border-left:3px double #a63535;
+  border-bottom: 3px double #a63535;
+  border-right:3px double #a63535;
+  padding-left:20px;
+  margin-right: 4px;
+  margin-bottom: 3px;
+  padding-top:5px;
+}
+form .user-info .input-box{
+ margin-bottom:25px;
+}
+
+form .user-info .input-box .info{
+ display:block;
+}
+
+form .user-info .input-box input{
+ height:30px;
+ width:100%;
+ border:1px solid black;
+ border-radius:5px;
+ padding-left:5px;
+ margin-right:10px;
+}
+
+.register .signup .button {
+ display: flex;
+ justify-content: center;
+ margin-top:25px;
+ }
+
+.register .signup .button input[type="submit"] {
+ height: 40px;
+ width: 100%;
+ max-width: 200px;
+ background-color: #4CAF50;
+ color: white;
+ font-size: 1.2rem;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ }
+
+ form p {
+  display:flex;
+  justify-content:center;
+ }
+
+ .header1{
+  position:relative;
+  background-color:#3D3D3D;
+ }
+
+ .header1 h1,h2{
+  margin-bottom:0;
+  color:#fff;
+  padding-left:0.5%;
+ }
+
+ .header h1{
+  padding-top:0.5%;
+ }
+
+ .header1 #login{
+  position:absolute;
+  display:flex;
+  top:58%;
+  right:1%;
+ }
+
+ .header1 #login > *{
+  margin-right:10px;
+ }
+
+ .header1 #login > .input-box{
+  color:red;
+ }
+
+ .header1 #login > .input-box[type="submit"]{
+  background-color:red;
+ }
+
+ .header1 > p > a{
+  text-decoration:none;
+  color:red;
+  position:absolute;
+  top:80%;
+  right:23.45%;
+ }
+
+ footer{
+  background-color: #87CEEB;
+  border:solid 3px # ;
+ }
+
+ #main_menu {
+    width: 100%;
+    background-color: red;
+    border:5px solid #5E5E5E;
+    border-radius:5px;
+    border-right:0;
+  }
+  
+  #main_menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    color: #fff;
+  }
+  
+  #main_menu li {
+    position: relative;
+    flex: 1;
+    text-align: center;
+  }
+
+  #main_menu #list_faq{
+   margin:0;
+   padding:0;
+  }
+  
+  #main_menu a {
+    display: block;
+    padding: 16px;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #main_menu ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: red;
+    width: 100%;
+  }
+  
+  #main_menu ul ul li {
+    width: 100%;
+    text-align: left;
+  }
+  
+  #main_menu ul ul a {
+    padding: 12px;
+  }
+  
+  #main_menu li > span {
+    cursor: pointer;
+  }
+  
+  #main_menu li > span:before {
+    content: "▼";
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  #main_menu li > span.clicked::before {
+    content: "▲";
+  }
+  
+  #main_menu li > span.clicked + ul {
+    display: block;
+    color: #fff;
+  }
+  
+  #main_menu li > span.clicked {
+    color: #ff0;
+  }
+  
+  
+  
+  
