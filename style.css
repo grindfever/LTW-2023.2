@@ -278,4 +278,9 @@ footer{
    display:flex;
    justify-content:center;
   }
- 
+  
+  /*app-development.php*/
+  .Department {
+   padding:10px;
+  }
+
