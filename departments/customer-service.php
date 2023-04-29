@@ -61,7 +61,7 @@ session_start();
             <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
             <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
             <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-            <li><a href="http://localhost:9000/departments/costumer-service.php">Costumer Service</a></li>
+            <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
             <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
           </ul>
         </li>
@@ -83,7 +83,7 @@ session_start();
         </li>
       </ul>
     </nav>  
-    <div class="content">
+    <div class="Department">
         <h2>Customer Service Department</h2>
         <p>Welcome to the customer service department page. Our team is dedicated to providing you with the best customer service experience possible. If you are having any issues with our products or services, please do not hesitate to contact us using one of the methods below:</p>
 
@@ -95,12 +95,11 @@ session_start();
 
         <p>We are available to help you Monday through Friday, from 9am to 5pm EST.</p>
     </div>
-
+    </body>
     <footer>
      <p>© Copyright 2021-2023 IT Ticket</p>
      <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
     </footer>
-</body>
 </html>
 
 

@@ -61,7 +61,7 @@ session_start();
             <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
             <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
             <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-            <li><a href="http://localhost:9000/departments/costumer-service.php">Costumer Service</a></li>
+            <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
             <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
           </ul>
         </li>
@@ -83,27 +83,30 @@ session_start();
         </li>
       </ul>
     </nav>  
-    <section class="Department">
-  <h2>App Development Department</h2>
-  <p>Our App Development team is dedicated to creating mobile applications that are intuitive, user-friendly, and efficient. We develop apps for both iOS and Android platforms, using the latest technologies and best practices to ensure the best user experience.</p>
-  <h3>Services we offer:</h3>
-  <ul>
-    <li>Custom mobile app development</li>
-    <li>App maintenance and updates</li>
-    <li>App integration with other systems</li>
-    <li>App testing and quality assurance</li>
-    <li>App deployment and support</li>
-  </ul>
-  <h3>Our approach:</h3>
-  <p>We believe in a collaborative approach to app development, working closely with our clients to understand their needs, goals, and user expectations. We follow a user-centric design process, focusing on the end-users and their needs throughout the development cycle.</p>
-  <h3>Our team:</h3>
-  <p>Our team consists of experienced mobile app developers, designers, and project managers who are passionate about delivering high-quality apps that meet the needs of our clients and their users. We have a proven track record of delivering successful mobile apps across various industries.</p>
-  <div id="Contact">
-   <h3>Contact us:</h3>
-   <p>If you have any questions or would like to discuss your app development project, please don't hesitate to contact us at <a href="mailto:appdev@yourcompany.com">appdev@yourcompany.com</a>.</p>
+  <div class="Department">
+    <h2>App Development Department</h2>
+    <p>Our App Development team is dedicated to creating mobile applications that are intuitive, user-friendly, and efficient. We develop apps for both iOS and Android platforms, using the latest technologies and best practices to ensure the best user experience.</p>
+    <h3>Services we offer:</h3>
+    <ul>
+      <li>Custom mobile app development</li>
+      <li>App maintenance and updates</li>
+      <li>App integration with other systems</li>
+      <li>App testing and quality assurance</li>
+      <li>App deployment and support</li>
+    </ul>
+    <h3>Our approach:</h3>
+    <p>We believe in a collaborative approach to app development, working closely with our clients to understand their needs, goals, and user expectations. We follow a user-centric design process, focusing on the end-users and their needs throughout the development cycle.</p>
+    <h3>Our team:</h3>
+    <p>Our team consists of experienced mobile app developers, designers, and project managers who are passionate about delivering high-quality apps that meet the needs of our clients and their users. We have a proven track record of delivering successful mobile apps across various industries.</p>
+ 
+    <div id="Contact">
+      <h3>Contact us:</h3>
+      <p>If you have any questions or would like to discuss your app development project, please don't hesitate to contact us at <a href="mailto:appdev@yourcompany.com">appdev@yourcompany.com</a>.</p>
+    </div>
   </div> 
-</section>
-<footer>
+  </body>
+    <footer>
      <p>© Copyright 2021-2023 IT Ticket</p>
      <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
     </footer>
+</html>

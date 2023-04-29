@@ -61,7 +61,7 @@ session_start();
             <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
             <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
             <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-            <li><a href="http://localhost:9000/departments/costumer-service.php">Costumer Service</a></li>
+            <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
             <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
           </ul>
         </li>
@@ -82,5 +82,38 @@ session_start();
          </ul>
         </li>
       </ul>
-    </nav>  
-  
+    </nav> 
+  <div class="Department">
+    <h2>Hardware Technical Support</h2>
+    <p>Welcome to the Hardware Technical Support department! Our team of experts is here to help you with all of your hardware-related issues, from computer crashes to printer malfunctions.</p>
+    <p>We understand that technology problems can be frustrating, but we are dedicated to providing you with prompt and effective solutions to get you back to work as quickly as possible. Our team is trained to handle a wide variety of hardware issues, so no matter what the problem is, we are confident we can help.</p>
+    <h3>Services we offer</h3>
+    <ul>
+      <li>Diagnosing and repairing computer hardware issues</li>
+      <li>Fixing printer and scanner problems</li>
+      <li>Installation and configuration of hardware components</li>
+      <li>Assistance with hardware-related software issues</li>
+      <li>Recommendations for hardware upgrades and replacements</li>
+    </ul>
+    <h3>How to request support</h3>
+    <p>If you are experiencing a hardware issue, you can submit a support ticket through our website by navigating to the "Tickets" section and selecting "New Ticket." Be sure to provide as much detail as possible about the issue you are experiencing so that we can diagnose and resolve the problem quickly.</p>
+    <p>Alternatively, you can reach out to us directly by calling our support hotline at 555-1234. Our team is available to take your call 24/7 and will work with you to resolve your issue as quickly as possible.</p>
+    <h3>Our team:</h3>
+    <p>Our team comprises certified hardware experts who have years of experience in providing technical support for hardware components and devices. They possess excellent analytical and problem-solving skills, and they are always up-to-date with the latest advancements in hardware technology. Our team is dedicated to providing the best possible support to our customers.</p>
+    <div id="Contact">
+      <h3>Contact us:</h3>
+      <p>If you need technical support for your hardware components or devices, please contact us at:</p>
+      <ul>
+        <li>Phone: 1-800-123-4567</li>
+        <li>Email: hardwaresupport@company.com</li>
+        <li>Live chat: Visit our website and click on the live chat icon</li>
+      </ul>
+    </div>
+  </div>
+</section>
+  </body>
+    <footer>
+     <p>© Copyright 2021-2023 IT Ticket</p>
+     <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
+    </footer>
+</html> 
