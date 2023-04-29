@@ -83,7 +83,7 @@ session_start();
         </li>
       </ul>
     </nav>  
-    <div id="Department">
+    <div class="Department">
       <h2>Network Support Department</h2>
       <p>The Network Support Department is responsible for providing technical support and maintaining the company's network infrastructure. Our main goal is to ensure that the company's network operates efficiently and securely, and that any issues or problems are addressed promptly.</p>
       <h3>Services we offer:</h3>
@@ -98,7 +98,7 @@ session_start();
       <p>Our approach to network support is based on a proactive and preventative mindset. We aim to identify and address potential issues before they become major problems, and to continuously monitor and optimize the network to ensure maximum efficiency and security.</p>
       <h3>Our team:</h3>
       <p>Our team of network support specialists has extensive experience and expertise in network design, implementation, and maintenance. We stay up-to-date with the latest technologies and trends in network support to ensure that we can provide the best possible service to our clients.</p>
-      <div id="Contact">
+      <div class="Contact">
         <h3>Contact us:</h3>
         <p>If you have any questions or concerns regarding the company's network, please do not hesitate to contact us:</p>
         <ul>

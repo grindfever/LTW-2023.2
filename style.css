@@ -283,6 +283,10 @@ footer{
   .Department {
    padding:10px;
   }
+  .Contact {
+    border-top:5px double black;
+    border-bottom:5px double black;
+  }
 
 
 

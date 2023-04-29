@@ -99,7 +99,7 @@ session_start();
     <h3>Our team:</h3>
     <p>Our team consists of experienced mobile app developers, designers, and project managers who are passionate about delivering high-quality apps that meet the needs of our clients and their users. We have a proven track record of delivering successful mobile apps across various industries.</p>
  
-    <div id="Contact">
+    <div class="Contact">
       <h3>Contact us:</h3>
       <p>If you have any questions or would like to discuss your app development project, please don't hesitate to contact us at <a href="mailto:appdev@yourcompany.com">appdev@yourcompany.com</a>.</p>
     </div>

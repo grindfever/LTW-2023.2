@@ -84,7 +84,7 @@ session_start();
       </ul>
     </nav>  
     <section>
-  <div id="Department">
+    <div class="Department">
     <h2>Software Technical Support</h2>
     <p>Our software technical support team is here to assist you with any technical problems you may encounter while using our software products. Our main goal is to ensure that our customers have a seamless and enjoyable experience using our products.</p>
     <h3>Services we offer:</h3>
@@ -98,7 +98,7 @@ session_start();
     <p>Our approach to software technical support is customer-focused. We understand that every customer has unique needs, and we strive to provide personalized and efficient solutions to every problem. Our team is dedicated to delivering high-quality technical support services that meet the needs of our customers.</p>
     <h3>Our team:</h3>
     <p>Our software technical support team consists of experienced professionals with extensive knowledge of our products and services. We have a team of experts who specialize in different areas of software development, which allows us to provide comprehensive technical support services. Our team is dedicated to providing prompt and effective solutions to any technical problems our customers may encounter.</p>
-    <div id="Contact">
+    <div class="Contact">
       <h3>Contact us:</h3>
       <p>If you need technical support, please do not hesitate to contact us. You can reach our software technical support team by phone or email:</p>
       <ul>

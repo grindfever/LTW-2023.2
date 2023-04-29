@@ -100,7 +100,7 @@ session_start();
     <p>Alternatively, you can reach out to us directly by calling our support hotline at 555-1234. Our team is available to take your call 24/7 and will work with you to resolve your issue as quickly as possible.</p>
     <h3>Our team:</h3>
     <p>Our team comprises certified hardware experts who have years of experience in providing technical support for hardware components and devices. They possess excellent analytical and problem-solving skills, and they are always up-to-date with the latest advancements in hardware technology. Our team is dedicated to providing the best possible support to our customers.</p>
-    <div id="Contact">
+    <div class="Contact">
       <h3>Contact us:</h3>
       <p>If you need technical support for your hardware components or devices, please contact us at:</p>
       <ul>
@@ -110,7 +110,6 @@ session_start();
       </ul>
     </div>
   </div>
-</section>
   </body>
     <footer>
      <p>© Copyright 2021-2023 IT Ticket</p>

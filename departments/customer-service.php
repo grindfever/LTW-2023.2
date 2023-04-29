@@ -86,13 +86,13 @@ session_start();
     <div class="Department">
         <h2>Customer Service Department</h2>
         <p>Welcome to the customer service department page. Our team is dedicated to providing you with the best customer service experience possible. If you are having any issues with our products or services, please do not hesitate to contact us using one of the methods below:</p>
-
-        <ul>
+        <div class="Contact">
+          <ul>
             <li>Email: customerservice@company.com</li>
             <li>Phone: 555-1234</li>
             <li>Live Chat: available on our website during business hours</li>
-        </ul>
-
+          </ul>
+        </div>
         <p>We are available to help you Monday through Friday, from 9am to 5pm EST.</p>
     </div>
     </body>

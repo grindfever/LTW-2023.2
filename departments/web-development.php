@@ -83,7 +83,7 @@ session_start();
         </li>
       </ul>
     </nav>  
-  <div id="Deparment">
+    <div class="Department">
     <h2>Web Development Department</h2>
     <p>Our web development department is responsible for designing and building web applications that meet the needs of our clients. We work closely with our clients to ensure that their website or web application is user-friendly, visually appealing, and functional.</p>
     <h3>Services we offer:</h3>
@@ -98,7 +98,7 @@ session_start();
     <p>At our web development department, we believe in using the latest technologies and industry best practices to deliver high-quality web solutions. We work collaboratively with our clients to understand their goals and objectives and use this information to develop a tailored web solution that meets their needs.</p> 
     <h3>Our team:</h3>
     <p>Our web development team consists of experienced developers with expertise in various web technologies such as HTML, CSS, JavaScript, PHP, and Python. We also have UI/UX designers who ensure that the websites and web applications we build are visually appealing and user-friendly.</p> 
-    <div id="Contact">
+    <div class="Contact">
       <h3>Contact us:</h3>
       <p>If you have any questions about our web development services or would like to discuss your project, please feel free to contact us at:</p>
       <ul>

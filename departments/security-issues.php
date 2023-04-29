@@ -83,8 +83,7 @@ session_start();
         </li>
       </ul>
     </nav>  
-    <section>
-        <div id="Department">
+        <div class="Department">
             <h2>Security Issues Department</h2>
             <p>Our department is responsible for ensuring the security of our organization's systems and data. We work to prevent security breaches, protect sensitive information, and respond to security incidents. Our team is composed of experienced security professionals who are trained in the latest security technologies and practices.</p>
             <h3>Services we offer:</h3>
@@ -99,8 +98,7 @@ session_start();
             <p>Our approach to security is proactive and holistic. We take a multi-layered approach to security, utilizing a combination of technical controls, policies and procedures, and employee education and awareness. We work closely with other departments to ensure that security is integrated into all aspects of our organization's operations.</p>
             <h3>Our team:</h3>
             <p>Our team is composed of experienced security professionals who hold industry certifications such as CISSP, CISM, and CISA. Our team members have expertise in a wide range of security technologies and practices, including network security, application security, and cloud security.</p>
-        </div>
-        <div id="Contact">
+        <div class="Contact">
             <h3>Contact us:</h3>
             <p>If you have any security concerns or questions, please do not hesitate to contact us:</p>
             <ul>
@@ -109,7 +107,7 @@ session_start();
                 <li>Address: 123 Main St, Anytown USA</li>
             </ul>
         </div>
-    </section>
+        </div>
     </body>
     <footer>
      <p>© Copyright 2021-2023 IT Ticket</p>
