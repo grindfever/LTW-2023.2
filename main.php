@@ -138,12 +138,12 @@ session_start();
       <li>
         <span>Departments</span>
         <ul>
-          <li><a href="http://localhost:9000/departments/software-ts.php">Software Techinical Support</a></li>
-          <li><a href="http://localhost:9000/departments/hardware-ts.php">Hardware Techincal Support</a></li>
+          <li><a href="http://localhost:9000/departments/software-ts.php">Software Technical Support</a></li>
+          <li><a href="http://localhost:9000/departments/hardware-ts.php">Hardware Technical Support</a></li>
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costumer-service.php">Costumer Service</a></li>
+          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>

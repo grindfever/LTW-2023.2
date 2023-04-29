@@ -278,4 +278,15 @@ footer{
    display:flex;
    justify-content:center;
   }
- 
+  
+/*Departments general css*/
+  .Department {
+   padding:10px;
+  }
+  .Contact {
+    border-top:5px double black;
+    border-bottom:5px double black;
+  }
+
+
+
