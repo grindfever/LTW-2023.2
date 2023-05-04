@@ -47,6 +47,7 @@ foreach ($table2 as $row) {
     echo "<td>" . $row['ticket_department_id'] . "</td>";
     echo "<td>" . $row['ticket_status'] . "</td>";
     echo "<td>" . $row['ticket_description'] . "</td>";
+    echo "<td>" . $row['ticket_register_time'] . "</td>";
     echo "</tr>";
 }
 echo '</table>';

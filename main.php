@@ -1,6 +1,7 @@
 <?php
 $conn = new PDO('sqlite:database.db');
 session_start();
+ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +56,8 @@ session_start();
             
              if($result1 == false && $result2 == false){
               $_SESSION['message'] = $error_message1;
-              echo '<meta http-equiv="refresh" content="0; url=main.php" />';
+              ob_clean();
+              header('Location: main.php');
               exit();
              }
             
@@ -75,12 +77,14 @@ session_start();
                $time = time();
                $stmt->bindParam(1,$time);
                $stmt->bindParam(2,$_SESSION['user_id']);
-               echo '<meta http-equiv="refresh" content="0; url=main.php" />';
+               ob_clean();
+               header('Location: main.php');
                exit();
               }
               else{
                $_SESSION['message'] = $error_message2;
-               echo '<meta http-equiv="refresh" content="0; url=main.php" />';
+               ob_clean();
+               header('Location: main.php');
                exit();
               }
              }
@@ -95,17 +99,21 @@ session_start();
                $_SESSION['username'] = $stored_password_row['username'];
                $_SESSION['email'] = $stored_password_row['email'];
                $_SESSION['timeout'] = time() + 3600;
+               $_SESSION['usertype'] = $stored_password_row['user_type'];
+               $date = date('d/m/Y H:i');
                $stmt = $conn->prepare('INSERT INTO Logins VALUES (?,?) WHERE user_id = ?');
                $stmt->bindParam(1,$_SESSION['user_id']);
-               $stmt->bindParam(2,time());
+               $stmt->bindParam(2,$date);
                $stmt->bindParam(3,$_SESSION['user_id']);
                $stmt->execute();
-               echo '<meta http-equiv="refresh" content="0; url=main.php" />';
+               ob_clean();
+               header('Location: main.php'); 
                exit();
               }
               else{
                $_SESSION['message'] = $error_message2;
-               echo '<meta http-equiv="refresh" content="0; url=main.php" />';
+               ob_clean();
+               header('Location: main.php');
                exit();
               }
              }
@@ -151,12 +159,12 @@ session_start();
       <li>
         <span>Departments</span>
         <ul>
-          <li><a href="http://localhost:9000/departments/software-ts.php">Software Techinical Support</a></li>
-          <li><a href="http://localhost:9000/departments/hardware-ts.php">Hardware Techincal Support</a></li>
+          <li><a href="http://localhost:9000/departments/software-ts.php">Software Technical Support</a></li>
+          <li><a href="http://localhost:9000/departments/hardware-ts.php">Hardware Technical Support</a></li>
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costumer-service.php">Costumer Service</a></li>
+          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -176,6 +184,42 @@ session_start();
         <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
        </ul>
       </li>
+      <?php
+       if($_SESSION['usertype'] == "agent" || $_SESSION['usertype'] == "admin"){
+        ?>
+        <li>
+         <span>Staff</span>
+         <ul>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Staff Messages</a><li>
+          <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
+         </ul>
+        </li>
+      <?php
+       }
+       if($_SESSION['usertype'] == "admin"){
+      ?>
+       <li>
+        <span>Management</span>
+        <ul>
+          <li>
+            <span>Departments</span>
+            <ul>
+             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
+             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
+             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
+             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
+             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
+            </ul>
+          </li>
+          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+        </ul>    
+       </li>
+      <?php
+       }
+      ?>
     </ul>
   </nav>  
    <section class = "Description">

@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 $conn = new PDO('sqlite:../database.db');
 if(isset($_SESSION['username'])){
  function add_paragraphs($input) {
@@ -83,7 +84,7 @@ if(isset($_SESSION['username'])){
      <div class = "ticket-info">
       <div class = "title-input-box">
         <span class = "title">Title</span>
-        <input type = "text" name = "title">
+        <input type = "text" id = "ticket_title" name = "title">
       </div>
         <label for="Department">Choose a department:</label>
         <select name="department" id="department">
@@ -97,7 +98,7 @@ if(isset($_SESSION['username'])){
         </select>
       <div class = "description-input-box">
         <span class = "description">Description</span>
-        <textarea class = "description-text" name = "description"></textarea>
+        <textarea class = "description-text" id = "description_text" name = "description"></textarea>
       </div>
       <div class = "submission">
         <input type = "submit" name = "submit" value = "Submit">
@@ -109,10 +110,12 @@ if(isset($_SESSION['username'])){
          $client_id = $_SESSION['user_id'];
          $ticket_title = $_POST['title'];
          $ticket_department = $_POST['department'];
+         $description = $_POST['description'];
          $ticket_description = add_paragraphs($_POST['description']);
          $ticket_status = 'open';
-         $time = time();
-         if(!empty($ticket_title) and !empty($ticket_description)){
+         $time = date('d/m/Y H:i');
+         ;
+         if(!empty($ticket_title) and !empty($description)){
           try{
           $stmt = $conn->prepare('SELECT department_id FROM Departments WHERE department_name = ?');
           $stmt->bindParam(1,$ticket_department);
@@ -127,8 +130,8 @@ if(isset($_SESSION['username'])){
           $stmt->bindParam(6,$time);
           $stmt->execute();
           $_SESSION['message'] = 'Your ticket was successfully submitted';
-          echo '<meta http-equiv="refresh" content="0; url=ticket-form.php" />';
-          exit();
+          ob_clean();
+          header('Location: ticket-form.php');
           exit();
          }
          catch (PDOException $e) {
@@ -137,7 +140,8 @@ if(isset($_SESSION['username'])){
         }
          else{
           $_SESSION['message'] = 'You must fill in all the required fields!';
-          echo '<meta http-equiv="refresh" content="0; url=ticket-form.php" />';
+          ob_clean();
+          header('Location: ticket-form.php');
           exit();
          }
         }
@@ -154,6 +158,7 @@ if(isset($_SESSION['username'])){
     <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
    </footer>
   <script src="../js_files/click.js"></script>
+  <script src="../js_files/save_ticket_input.js"></script>
  </body>
 </html>
 <?php

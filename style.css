@@ -147,7 +147,7 @@ form .user-info .input-box input{
 
  #main_menu {
     width: 100%;
-    background-color: red;
+    background-color: #4CAF50;
     border:5px solid #5E5E5E;
     border-radius:5px;
     border-right:0;
@@ -180,7 +180,7 @@ form .user-info .input-box input{
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: red;
+    background-color: #4CAF50;
     width: 100%;
   }
   
@@ -353,7 +353,50 @@ form .user-info .input-box input{
     border-radius: 5px;
     cursor: pointer;
   }
+
+  #active_tickets {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .active-ticket {
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
   
+  .active-ticket h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .active-ticket p {
+    margin: 0.5rem 0;
+  }
+  
+  .active-ticket ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: right;
+  }
+  
+  .active-ticket ul li {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+
+  .Department {
+    padding:10px;
+   }
+
+  .Contact {
+    border-top:5px double black;
+    border-bottom:5px double black;
+   }
 
 
   
