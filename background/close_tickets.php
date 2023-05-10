@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 $conn = new PDO('sqlite:../database.db');
 $stmt = $conn->prepare('SELECT client_id from Tickets WHERE ticket_id = ?');
 $verification_ticket_id = $_GET['ticket_id'];
@@ -15,8 +16,8 @@ if(isset($_SESSION['username']) && $client_id = $_SESSION['user_id']){
   $stmt->bindParam(2,$ticket_id);
   $stmt->execute();
   $_SESSION['message'] = 'Your ticket has been closed successfully!';
+  ob_clean();
   header('Location: ../tickets/active-tickets.php');
-  echo '<script>alert("Ticket has been closed successfully!");</script>';
   exit();
  }
 }

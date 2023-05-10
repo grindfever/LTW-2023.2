@@ -398,6 +398,45 @@ form .user-info .input-box input{
     border-bottom:5px double black;
    }
 
+   #chat-box-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+  }
+  
+  #chat-box {
+    width: 50%;
+    height: 80%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: scroll;
+  }
+  
+  #chat_messages {
+    height: 400px;
+    white-space: pre-wrap;
+  }
+  
+  #message_text {
+    width: 91%;
+    padding: 5px;
+    margin-right: 5px;
+    transform:translate(0%,140%);
+    height:20px;
+    min-height:20px;
+    max-height: 150px;
+    overflow-y:auto;
+  }
+  
+  #chat-form button {
+    padding: 5px;
+    transform:translate(0%,130%);
+  }
+  
+  
+  
+
 
   
   

@@ -56,7 +56,7 @@ if(isset($_SESSION['username'])){
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costumer-service.php">Costumer Service</a></li>
+          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -76,6 +76,42 @@ if(isset($_SESSION['username'])){
         <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
        </ul>
       </li>
+      <?php
+       if($_SESSION['usertype'] == "agent" || $_SESSION['usertype'] == "admin"){
+        ?>
+        <li>
+         <span>Staff</span>
+         <ul>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
+          <li><a href ="http://localhost:9000/staff/staff_messages.php">Staff Messages</a><li>
+          <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
+         </ul>
+        </li>
+      <?php
+       }
+       if($_SESSION['usertype'] == "admin"){
+      ?>
+       <li>
+        <span>Management</span>
+        <ul>
+          <li>
+            <span>Departments</span>
+            <ul>
+             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
+             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
+             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
+             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
+             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
+            </ul>
+          </li>
+          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+        </ul>    
+       </li>
+      <?php
+       }
+      ?>
     </ul>
   </nav>
   <div class = "ticket-form">

@@ -5,6 +5,9 @@ if(isset($_SESSION['username'])){
  if(isset($_SESSION['message'])) {
   echo '<script>alert("' . $_SESSION['message'] . '");</script>';
   unset($_SESSION['message']);
+ if(isset($_SESSION['redirect'])){
+  unset($_SESSION['redirect']);
+ }
 }
 ?>
 <!DOCTYPE html>
@@ -71,6 +74,42 @@ if(isset($_SESSION['username'])){
         <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
        </ul>
       </li>
+      <?php
+       if($_SESSION['usertype'] == "agent" || $_SESSION['usertype'] == "admin"){
+        ?>
+        <li>
+         <span>Staff</span>
+         <ul>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Staff Messages</a><li>
+          <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
+         </ul>
+        </li>
+      <?php
+       }
+       if($_SESSION['usertype'] == "admin"){
+      ?>
+       <li>
+        <span>Management</span>
+        <ul>
+          <li>
+            <span>Departments</span>
+            <ul>
+             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
+             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
+             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
+             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
+             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
+            </ul>
+          </li>
+          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+        </ul>    
+       </li>
+      <?php
+       }
+      ?>
     </ul>
   </nav>
   <h1 id = "active_tickets">Active Tickets</h1>
@@ -101,8 +140,15 @@ foreach($result as $row){
  echo '<ul>';
   echo'<li><a href=' . $url1 . '>View Ticket</a></li>';
   echo'<li><a href=' .$url2 . '>Messages</a></li>';
-  echo'<li><a id = "close-ticket-link" href=' .$url3 . '>Close Ticket</a></li>';
+  echo '<li><a href="#" onclick="confirmCloseTicket(\'' . $url3 . '\');">Close ticket</a></li>';
  echo '</ul>';
+echo '<script>
+function confirmCloseTicket(url) {
+  if (confirm("Are you sure you want to close this ticket?")) {
+   window.location.href = url;
+  }
+ }
+ </script>';
  echo '<hr>';
  echo '<br>';
  echo '<br>';

@@ -12,11 +12,12 @@ form.addEventListener('submit', function(event) {
 window.addEventListener('load', function() {
   const savedFormData = JSON.parse(sessionStorage.getItem('formData'));
   if (savedFormData) {
-    document.querySelector('#ticket_title').value = savedFormData.ticket_title;
-    document.querySelector('#department').value = savedFormData.department;
-    document.querySelector('#description_text').value = savedFormData.description_text;
+    document.querySelector('#ticket_title').value = savedFormData.ticket_title ? savedFormData.ticket_title : '';
+    document.querySelector('#department').value = savedFormData.department ? savedFormData.department : '';
+    document.querySelector('#description_text').value = savedFormData.description_text ? savedFormData.description_text : '';
   }
 });
+
 
 
   

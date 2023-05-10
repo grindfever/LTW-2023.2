@@ -1,6 +1,15 @@
 <?php
 session_start();
+ob_start();
 $conn = new PDO('sqlite:../database.db');
+function add_paragraphs($input) {
+  $paragraphs = explode("\n", $input);
+  $output = '';
+  foreach ($paragraphs as $paragraph) {
+   $output .= "<p>$paragraph</p>";
+  }
+  return $output;
+}
 $stmt = $conn->prepare('SELECT client_id from Tickets WHERE ticket_id = ?');
 $verification_ticket_id = $_GET['ticket_id'];
 $stmt->bindParam(1,$verification_ticket_id);
@@ -22,38 +31,22 @@ $verification_ticket_department_id_agents = $stmt->fetchColumn();
 
 if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SESSION['usertype'] == 'admin' && $_SESSION['admin_type'] == 'main admin') || ($_SESSION['usertype'] == 'admin' && $_SESSION['admin_type'] == 'local admin' && $ticket_department_id == $verification_ticket_department_id_admins) || ($_SESSION['usertype'] == 'admin' && $_SESSION['admin_type'] == 'main admin') || ($_SESSION['usertype'] == 'agent' && $ticket_department_id == $verification_ticket_department_id_agents)){
  if(isset($_GET['ticket_id'])){
-  $_SESSION['ticket_id'] = $_GET['ticket_id'];
-  $ticket_id = $_SESSION['ticket_id'];
-  $stmt = $conn->prepare('SELECT * FROM Tickets WHERE ticket_id = ?');
-  $stmt->bindParam(1,$ticket_id);
-  $stmt->execute();
-  $ticket = $stmt->fetch();
-  $stmt = $conn->prepare('SELECT department_name FROM Departments WHERE department_id = ?');
-  $department_id = $ticket['ticket_department_id'];
-  $stmt->bindParam(1,$department_id);
-  $stmt->execute();
-  $ticket_department_name = $stmt->fetchColumn();
-  $ticket['ticket_description'] = strip_tags($ticket['ticket_description'], '<br>');
-  $ticket['ticket_description'] = str_replace('<br>', "\n", $ticket['ticket_description']);
-  $ticket['ticket_description'] = nl2br($ticket['ticket_description']);
-  $ticket['ticket_description'] = '<p>' . str_replace("\n\n", '</p><p>', $ticket['ticket_description']) . '</p>';
-  $ticket['ticket_description'] = strip_tags($ticket['ticket_description'],'<br>');
-  $ticket['ticket_description'] = strip_tags($ticket['ticket_description'],'</br>');
 
+?>
 
-  ?>
- <html>
+<!DOCTYPE html>
+<html>
  <head>
-  <title>View Ticket</title>
-  <link rel="stylesheet" href="../style.css">
- </head>
- <body>
-  <header class = "header1">
-    <h1>Trouble Tickets<h1>
-    <h2>Here to help you solve all your tech problems!</h2>
-    <a href="http://localhost:9000/main.php" class="home-button"><img src="../images/home_icon.png" alt="Home"></a>
-  </header>
-  <nav id="main_menu">
+ <title>Messages</title>
+ <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class = "header1">
+ <h1>Trouble Tickets<h1>
+ <h2>Here to help you solve all your tech problems!</h2>
+ <a href="http://localhost:9000/main.php" class="home-button"><img src="../images/home_icon.png" alt="Home"></a>
+</header>
+<nav id="main_menu">
     <ul>
       <li>
         <span>My Profile</span>
@@ -85,7 +78,7 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costumer-service.php">Costumer Service</a></li>
+          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -105,49 +98,86 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
         <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
        </ul>
       </li>
+      <?php
+       if($_SESSION['usertype'] == "agent" || $_SESSION['usertype'] == "admin"){
+        ?>
+        <li>
+         <span>Staff</span>
+         <ul>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
+          <li><a href ="http://localhost:9000/staff/staff_messages.php">Staff Messages</a><li>
+          <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
+         </ul>
+        </li>
+      <?php
+       }
+       if($_SESSION['usertype'] == "admin"){
+      ?>
+       <li>
+        <span>Management</span>
+        <ul>
+          <li>
+            <span>Departments</span>
+            <ul>
+             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
+             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
+             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
+             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
+             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
+            </ul>
+          </li>
+          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+        </ul>    
+       </li>
+      <?php
+       }
+      ?>
     </ul>
-  </nav>
-  <div class = "ticket-form">
-  <form>
-    <h1 id = "ticket-form">My Ticket</h1>
-    <div class = "ticket-info">
-      <div class = "title-input-box">
-        <span class = "title">Title</span>
-        <input type = "text" name = "title" value="<?php echo $ticket['ticket_title']; ?>" disabled>
-      </div>
-      <div class="department-input-box">
-       <span class="department">Department</span>
-       <select name="department" disabled>
-        <option value="Software Technical Support" <?php if ($ticket_department_name == 'Software Technical Support') echo 'selected'; ?>>Software Technical Support</option>
-        <option value="Hardware Technical Support" <?php if ($ticket_department_name == 'Hardware Technical Support') echo 'selected'; ?>>Hardware Technical Support</option>
-        <option value="Costomer Service" <?php if ($ticket_department_name == 'Costumer Service') echo 'selected'; ?>>Costomer Service</option>
-        <option value="Network Support" <?php if ($ticket_department_name == 'Network Support') echo 'selected'; ?>>Network Support</option>
-        <option value="Security Issues" <?php if ($ticket_department_name == 'Security Issues') echo 'selected'; ?>>Security Issues</option>
-        <option value="App Development" <?php if ($ticket_department_name == 'App Development') echo 'selected'; ?>>App Development</option>
-        <option value="Web Development" <?php if ($ticket_department_name == 'Web Development') echo 'selected'; ?>>Web Development</option>
-       </select>
-      </div>
-
-      <div class = "description-input-box">
-        <span class = "description">Description</span>
-        <textarea class = "description-text" name = "description" disabled><?php echo $ticket['ticket_description']; ?></textarea>
-      </div>
-      <div class = "submission">
-        <input type = "submit" name = "submit" value = "Submit" disabled>
-      </div>
-    </div>
-  </form>
+  </nav>  
+  <div id="chat-box-wrapper">
+  <div id="chat-box">
+    <div id="chat_messages"></div>
+    <form id="chat-form" method = "POST">
+      <textarea class = "message-text" id = "message_text" name = "new_message"></textarea>
+      <button type="submit" id = "send_button">Send</button>
+    </form>
+  </div>
 </div>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+ $new_message = $_POST['new_message'];
+ $stmt = $conn->prepare('INSERT INTO Messages(receiver_id,sender_id,content,ticket_id,time_of_message) VALUES(?,?,?,?,?)');
+ $sender_id = $_SESSION['user_id'];
+ $receiver_id = $client_id;
+ $content = add_paragraphs($new_message);
+ $ticket_id = $_GET['ticket_id'];
+ $time_of_message = date('d/m/Y H:i');
+ $display_time_of_message = date('H:i');
+ $stmt->bindParam(1,$sender_id);
+ $stmt->bindParam(2,$receiver_id);
+ $stmt->bindParam(3,$content);
+ $stmt->bindParam(4,$ticket_id);
+ $stmt->bindParam(5,$time_of_message);
+ $stmt->execute();
+ ob_clean();
+ $refresh_url = 'messages.php?ticket_id=' . $ticket_id;
+ header('Location:' . $refresh_url);
+}
+?>
 <footer>
  <p>© Copyright 2021-2023 IT Ticket</p>
  <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
- </footer>
- <script src="../js_files/click.js"></script>
- </body>
-</html> 
+</footer>
+<script src="../js_files/click.js"></script>
+<script src="../js_files/close_ticket_confirmation.js"></script>
+<script src="../js_files/increasing-textarea-size.js"></script>
+<script src="../js_files/adjust-button-height.js"></script>
+<script src="../js_files/real_time_messages.js"></script>
+</body>
+</html>
 <?php
  }
 }
 ?>
-
-  

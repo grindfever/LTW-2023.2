@@ -74,9 +74,16 @@ ob_start();
                $_SESSION['timeout'] = time() + 3600;
                $_SESSION['usertype'] = $stored_password_row['usertype'];
                $stmt = $conn->prepare('UPDATE Logins SET login_time = ? WHERE user_id = ?');
-               $time = time();
-               $stmt->bindParam(1,$time);
+               $date = date('d/m/Y H:i');
+               $stmt->bindParam(1,$date);
                $stmt->bindParam(2,$_SESSION['user_id']);
+               if($_SESSION['usertype'] == 'admin'){
+                $stmt = $conn->prepare('SELECT admin_type FROM Admins WHERE admin_id = ?');
+                $stmt->bindParam(1,$stored_password_row['user_id']);
+                $stmt->execute();
+                $admin_type = $stmt->fetchColumn();
+                $_SESSION['admin_type'] = $admin_type;
+               }
                ob_clean();
                header('Location: main.php');
                exit();
@@ -191,7 +198,7 @@ ob_start();
          <span>Staff</span>
          <ul>
           <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
-          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Staff Messages</a><li>
+          <li><a href ="http://localhost:9000/staff/staff_messages.php">Staff Messages</a><li>
           <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
          </ul>
         </li>

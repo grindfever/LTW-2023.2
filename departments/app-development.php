@@ -21,59 +21,95 @@ if(isset($_SESSION['username'])){
       <img src = "" alt = "">
     </header>
     <nav id="main_menu">
-      <ul>
+    <ul>
+      <li>
+        <span>My Profile</span>
+        <ul>
+          <li><a href="http://localhost:9000/profiles/my-profile.php">View Profile</a></li>
+          <li>
+            <span>Edit Profile</span>
+            <ul>
+              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
+              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
+              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span>Tickets</span>
+        <ul>
+          <li><a href="http://localhost:9000/tickets/ticket-form.php">New Ticket</a></li>
+          <li><a href="http://localhost:9000/tickets/active-tickets.php">Active Tickets</a></li>
+          <li><a href="http://localhost:9000/tickets/closed-tickets.php">Previous Tickets</a></li>
+        </ul>
+      </li>
+      <li>
+        <span>Departments</span>
+        <ul>
+          <li><a href="http://localhost:9000/departments/software-ts.php">Software Technical Support</a></li>
+          <li><a href="http://localhost:9000/departments/hardware-ts.php">Hardware Technical Support</a></li>
+          <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
+          <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
+          <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
+          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
+          <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
+        </ul>
+      </li>
+      <li>
+        <span>Projects and Products</span>
+        <ul>
+          <li><a href="http://localhost:9000/projects&products/project-a.php">Project A</a></li>
+          <li><a href="http://localhost:9000/projects&products/project-b.php">Project B</a></li>
+          <li><a href="http://localhost:9000/projects&products/product-a.php">Product A</a></li>
+          <li><a href="http://localhost:9000/projects&products/product-b.php">Product B</a></li>
+          <li><a href="http://localhost:9000/projects&products/product-c.php">Product C</a></li>
+        </ul>
+      </li>
+      <li>
+       <span>FAQ</span>
+       <ul>
+        <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
+       </ul>
+      </li>
+      <?php
+       if($_SESSION['usertype'] == "agent" || $_SESSION['usertype'] == "admin"){
+        ?>
         <li>
-          <span>My Profile</span>
-          <ul>
-            <li><a href="http://localhost:9000/profiles/my-profile.php">View Profile</a></li>
-            <li>
-              <span>Edit Profile</span>
-              <ul>
-                <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-                <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-                <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <span>Tickets</span>
-          <ul>
-            <li><a href="http://localhost:9000/tickets/ticket-form.php">New Ticket</a></li>
-            <li><a href="http://localhost:9000/tickets/active-tickets.php">Active Tickets</a></li>
-            <li><a href="http://localhost:9000/tickets/closed-tickets.php">Previous Tickets</a></li>
-          </ul>
-        </li>
-        <li>
-          <span>Departments</span>
-          <ul>
-            <li><a href="http://localhost:9000/departments/software-ts.php">Software Technical Support</a></li>
-            <li><a href="http://localhost:9000/departments/hardware-ts.php">Hardware Technical Support</a></li>
-            <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
-            <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
-            <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-            <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
-            <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
-          </ul>
-        </li>
-        <li>
-          <span>Projects and Products</span>
-          <ul>
-            <li><a href="http://localhost:9000/projects&products/project-a.php">Project A</a></li>
-            <li><a href="http://localhost:9000/projects&products/project-b.php">Project B</a></li>
-            <li><a href="http://localhost:9000/projects&products/product-a.php">Product A</a></li>
-            <li><a href="http://localhost:9000/projects&products/product-b.php">Product B</a></li>
-            <li><a href="http://localhost:9000/projects&products/product-c.php">Product C</a></li>
-          </ul>
-        </li>
-        <li>
-         <span>FAQ</span>
+         <span>Staff</span>
          <ul>
-          <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Staff Messages</a><li>
+          <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
          </ul>
         </li>
-      </ul>
-    </nav>  
+      <?php
+       }
+       if($_SESSION['usertype'] == "admin"){
+      ?>
+       <li>
+        <span>Management</span>
+        <ul>
+          <li>
+            <span>Departments</span>
+            <ul>
+             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
+             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
+             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
+             <li><a href="http://localhost:9000/management/customer-service.php">Customer Service</a></li>
+             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
+            </ul>
+          </li>
+          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+        </ul>    
+       </li>
+      <?php
+       }
+      ?>
+    </ul>
+  </nav>    
   <div class="Department">
     <h2>App Development Department</h2>
     <p>Our App Development team is dedicated to creating mobile applications that are intuitive, user-friendly, and efficient. We develop apps for both iOS and Android platforms, using the latest technologies and best practices to ensure the best user experience.</p>
