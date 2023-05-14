@@ -11,7 +11,7 @@ if($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent'){
  <!DOCTYPE html>
 <html>
  <head>
-  <title>My Tickets</title>
+  <title>My Assigned Tickets</title>
   <link rel="stylesheet" href="../style.css">
  </head>
  <body>
@@ -79,7 +79,7 @@ if($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent'){
          <span>Staff</span>
          <ul>
           <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
-          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Staff Messages</a><li>
+          <li><a href ="http://localhost:9000/staff/staff_messages.php">Staff Messages</a><li>
           <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
          </ul>
         </li>

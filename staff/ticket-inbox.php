@@ -49,8 +49,9 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
  <!DOCTYPE html>
 <html>
  <head>
-  <title>My Tickets</title>
+  <title>Staff Inbox</title>
   <link rel="stylesheet" href="../style.css">
+  <link rel="import" href="http://localhost:9000/staff/choose_priority.php">
  </head>
  <body>
   <header class = "header1">
@@ -117,7 +118,7 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
          <span>Staff</span>
          <ul>
           <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
-          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Staff Messages</a><li>
+          <li><a href ="http://localhost:9000/staff/staff_messages.php">Staff Messages</a><li>
           <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
          </ul>
         </li>
@@ -147,7 +148,8 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
        }
       ?>
     </ul>
-  </nav>  
+  </nav>
+  <h1 id = "active_tickets">Inbox</h1>  
   <?php
  foreach($tickets as $row){
   $url1 = '../tickets/view_tickets.php?ticket_id=' . $row['ticket_id'];
@@ -183,22 +185,48 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
   echo '<p>' . $row['ticket_register_time'] . '</p>';
   echo '<ul>';
    echo'<li><a href=' . $url1 . '>View Ticket</a></li>';
-   echo '<li><a href="#" onclick="showPrioritySelection(\'' . $url2 . '\');">Assign Ticket</a></li>';
+   echo '<li><a href="#" onclick="showModal(\'' . $url2 . '\');">Assign Ticket</a></li>';
    echo '<li><a href="#" onclick="confirmCloseTicket(\'' . $url3 . '\');">Close ticket</a></li>';
   echo '</ul>';
-  echo '<script>
-  function showPrioritySelection(url) {
-    var priority = prompt("Please select a ticket priority:");
-    if (priority != null && priority != "") {
-      window.location.href = url + "&priority=" + priority;
-    }
-  }
-  function confirmCloseTicket(url) {
-   if (confirm("Are you sure you want to close this ticket?")) {
+  echo '<div id="myModal" class="modal">
+<div class="modal-content">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <h2>Select Ticket Priority</h2>
+  <p>Please select a priority for this ticket:</p>
+  <form>
+    <div class="priority-options">
+      <label><input type="radio" name="priority" value="low"> Low</label>
+      <label><input type="radio" name="priority" value="medium"> Medium</label>
+      <label><input type="radio" name="priority" value="high"> High</label>
+    </div>
+    <input type="hidden" id="assignUrl">
+    <button type="button" onclick="confirmPriority()">Confirm</button>
+  </form>
+</div>
+</div>';
+
+echo '<script>
+function showModal(url) {
+  document.getElementById("myModal").style.display = "block";
+  document.getElementById("assignUrl").value = url;
+}
+
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+
+function confirmPriority() {
+  const assignUrl = document.getElementById("assignUrl").value;
+  const priority = document.querySelector("input[name=\'priority\']:checked").value;
+  window.location.href = assignUrl + "&priority=" + priority;
+}
+
+function confirmCloseTicket(url) {
+  if (confirm("Are you sure you want to close this ticket?")) {
     window.location.href = url;
-   }
   }
- </script>';
+}
+</script>';
  echo '</ul>';
  echo '<hr>';
  echo '<br>';

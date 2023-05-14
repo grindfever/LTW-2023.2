@@ -13,7 +13,7 @@ if(isset($_SESSION['username'])){
 <!DOCTYPE html>
 <html>
  <head>
-  <title>My Tickets</title>
+  <title>My Closed Tickets</title>
   <link rel="stylesheet" href="../style.css">
  </head>
  <body>

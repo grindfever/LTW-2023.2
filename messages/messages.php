@@ -138,13 +138,33 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
   </nav>  
   <div id="chat-box-wrapper">
   <div id="chat-box">
-    <div id="chat_messages"></div>
-    <form id="chat-form" method = "POST">
-      <textarea class = "message-text" id = "message_text" name = "new_message"></textarea>
-      <button type="submit" id = "send_button">Send</button>
-    </form>
+    <div id="chat_messages">
+      <?php
+       $stmt = $conn->prepare('SELECT * FROM Messages WHERE ticket_id = ?');
+       $ticket_id = $_GET['ticket_id'];
+       $stmt->bindParam(1,$ticket_id);
+       $stmt->execute();
+       $messages = $stmt->fetchAll();
+       foreach($messages as $message){
+        if($message['sender_id'] == $_SESSION['user_id']){
+         $div_name = 'my_message';
+        }
+        else{
+         $div_name = 'received_message';
+        }
+        echo '<div id = "' . $div_name . '" >';
+         echo '<p>' . $message['content'] . '</p>';
+         echo '<p id = "time_of_message">' .$message['time_of_message'] . '</p>';
+        echo '</div>';
+       }
+      ?>
+    </div>
   </div>
 </div>
+ <form id="chat-form" method = "POST">
+      <textarea class = "message-text" id = "message_text" name = "new_message"></textarea>
+      <button type="submit" id = "send_button">Send</button>
+  </form>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
  $new_message = $_POST['new_message'];
@@ -155,8 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
  $ticket_id = $_GET['ticket_id'];
  $time_of_message = date('d/m/Y H:i');
  $display_time_of_message = date('H:i');
- $stmt->bindParam(1,$sender_id);
- $stmt->bindParam(2,$receiver_id);
+ $stmt->bindParam(1,$receiver_id);
+ $stmt->bindParam(2,$sender_id);
  $stmt->bindParam(3,$content);
  $stmt->bindParam(4,$ticket_id);
  $stmt->bindParam(5,$time_of_message);
