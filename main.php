@@ -1,6 +1,7 @@
 <?php
 $conn = new PDO('sqlite:database.db');
 session_start();
+ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +14,7 @@ session_start();
   <header class = "header1">
     <h1>IT Ticket<h1>
     <h2>Here to help you solve all your tech problems!</h2>
+    <a href="http://localhost:9000/main.php" class="home-button"><img src="images/home_icon.png" alt="Home"></a>
     <div id = "login">
      <?php
      if(isset($_SESSION['username'])){
@@ -53,7 +55,10 @@ session_start();
              $error_message2 = "Username/email and password do not match, please try again";
             
              if($result1 == false && $result2 == false){
-              echo '<p>' . $error_message1 .'</p>';
+              $_SESSION['message'] = $error_message1;
+              ob_clean();
+              header('Location: main.php');
+              exit();
              }
             
              else if($result1 !== false){
@@ -68,15 +73,26 @@ session_start();
                $_SESSION['email'] = $stored_password_row['email'];
                $_SESSION['timeout'] = time() + 3600;
                $_SESSION['usertype'] = $stored_password_row['usertype'];
-               $stmt = $conn->prepare('INSERT INTO Logins VALUES (?,?) WHERE user_id = ?');
-               $stmt->bindParam(1,$_SESSION['user_id']);
-               $stmt->bindParam(2,time());
-               $stmt->bindParam(3,$_SESSION['user_id']);
-               header('location:main.php');
+               $stmt = $conn->prepare('UPDATE Logins SET login_time = ? WHERE user_id = ?');
+               $date = date('d/m/Y H:i');
+               $stmt->bindParam(1,$date);
+               $stmt->bindParam(2,$_SESSION['user_id']);
+               if($_SESSION['usertype'] == 'admin'){
+                $stmt = $conn->prepare('SELECT admin_type FROM Admins WHERE admin_id = ?');
+                $stmt->bindParam(1,$stored_password_row['user_id']);
+                $stmt->execute();
+                $admin_type = $stmt->fetchColumn();
+                $_SESSION['admin_type'] = $admin_type;
+               }
+               ob_clean();
+               header('Location: main.php');
                exit();
               }
               else{
-               echo '<p>' .$error_message2 . '</p>';
+               $_SESSION['message'] = $error_message2;
+               ob_clean();
+               header('Location: main.php');
+               exit();
               }
              }
              else if($result2 !== false){
@@ -90,26 +106,38 @@ session_start();
                $_SESSION['username'] = $stored_password_row['username'];
                $_SESSION['email'] = $stored_password_row['email'];
                $_SESSION['timeout'] = time() + 3600;
+               $_SESSION['usertype'] = $stored_password_row['user_type'];
+               $date = date('d/m/Y H:i');
                $stmt = $conn->prepare('INSERT INTO Logins VALUES (?,?) WHERE user_id = ?');
                $stmt->bindParam(1,$_SESSION['user_id']);
-               $stmt->bindParam(2,time());
+               $stmt->bindParam(2,$date);
                $stmt->bindParam(3,$_SESSION['user_id']);
-               header('location:main.php');
+               $stmt->execute();
+               ob_clean();
+               header('Location: main.php'); 
                exit();
               }
               else{
-               echo '<p>' .$error_message2 . '</p>';
+               $_SESSION['message'] = $error_message2;
+               ob_clean();
+               header('Location: main.php');
+               exit();
               }
              }
            }
           }
+          if(isset($_SESSION['message'])){
+           echo '<p id = "login_error_message">' . $_SESSION['message'] . '</p>';
+           unset($_SESSION['message']);
+          }
         ?>
      </form>
+     <p id = "main_page_signup"><a href ="http://localhost:9000/signup.php">Do not have an account? Sign up!</a></p>
+     <img src = "" alt = "">
      <?php
      }
      ?>
     </div>
-    <img src = "" alt = "">
   </header>
   <nav id="main_menu">
     <ul>
@@ -143,7 +171,7 @@ session_start();
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
+          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -163,6 +191,42 @@ session_start();
         <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
        </ul>
       </li>
+      <?php
+       if($_SESSION['usertype'] == "agent" || $_SESSION['usertype'] == "admin"){
+        ?>
+        <li>
+         <span>Staff</span>
+         <ul>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
+          <li><a href ="http://localhost:9000/staff/staff_messages.php">Staff Messages</a><li>
+          <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
+         </ul>
+        </li>
+      <?php
+       }
+       if($_SESSION['usertype'] == "admin"){
+      ?>
+       <li>
+        <span>Management</span>
+        <ul>
+          <li>
+            <span>Departments</span>
+            <ul>
+             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
+             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
+             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
+             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
+             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
+            </ul>
+          </li>
+          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+        </ul>    
+       </li>
+      <?php
+       }
+      ?>
     </ul>
   </nav>  
    <section class = "Description">

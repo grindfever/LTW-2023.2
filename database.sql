@@ -91,17 +91,17 @@ CREATE TABLE Assignments (
   message_id INTEGER NOT NULL REFERENCES Messages
   );
 
-INSERT INTO Departments(department_name,department_admin_id)
-VALUES("Software Technical Support",1000);
-INSERT INTO Departments(department_name,department_admin_id)
-VALUES("Hardware Technical Support",1001);
-INSERT INTO Departments(department_name,department_admin_id)
-VALUES("Network Support",1002);
-INSERT INTO Departments(department_name,department_admin_id)
-VALUES("Costumer Service",1003);
-INSERT INTO Departments(department_name,department_admin_id)
-VALUES("Security Issues",1004);
-INSERT INTO Departments(department_name,department_admin_id)
-VALUES("Web Development",1005);
-INSERT INTO Departments(department_name,department_admin_id)
-VALUES("App Development",999);
+INSERT INTO Departments(department_id,department_name,department_admin_id)
+VALUES(745,"Software Technical Support",100651);
+INSERT INTO Departments(department_id,department_name,department_admin_id)
+VALUES(746,"Hardware Technical Support",100652);
+INSERT INTO Departments(department_id,department_name,department_admin_id)
+VALUES(747,"Network Support",100653);
+INSERT INTO Departments(department_id,department_name,department_admin_id)
+VALUES(748,"Costumer Service",100654);
+INSERT INTO Departments(department_id,department_name,department_admin_id)
+VALUES(749,"Security Issues",100655);
+INSERT INTO Departments(department_id,department_name,department_admin_id)
+VALUES(750,"Web Development",100656);
+INSERT INTO Departments(department_id,department_name,department_admin_id)
+VALUES(751,"App Development",100650);
