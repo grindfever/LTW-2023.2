@@ -31,9 +31,10 @@ if(isset($_SESSION['username'])){
           <li>
             <span>Edit Profile</span>
             <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+             <li><a href="#" onclick="showModal('change_username')">Change Username</a></li>
+             <li><a href="#" onclick="showModal('change_email')">Change Email</a></li>
+             <li><a href="#" onclick="showModal('change_password')">Change Password</a></li>
+             <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -54,7 +55,7 @@ if(isset($_SESSION['username'])){
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
+          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>

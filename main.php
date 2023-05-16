@@ -209,7 +209,7 @@ function is_valid_username($username) {
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
+          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>

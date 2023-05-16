@@ -1,37 +1,48 @@
+body{
+  padding: 0;
+  margin:0;
+  background-color: #dad8d8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size:22px;
+}
+.div{
+  font-size: 20px;
+}
 .register{
- display:flex;
- justify-content:center;
- align-items:center;
- height:100vh;
- padding:10px;
- background-color:#dad8d8;
-}
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  padding:10px;
+  background-color:#dad8d8;
+ }
 
-.signup .title{
- font-size: 2rem;
- position: relative;
- margin-top:-10px;
- margin-bottom:20px;
-} 
+ .signup .title{
+  font-size: 2rem;
+  position: relative;
+  margin-top:-10px;
+  margin-bottom:20px;
+ } 
 
-.signup{
- height:65%;
- width:100%;
- margin-bottom:8%;
- max-width:1000px;
- background-color:white;
- padding:30px;
- padding-bottom:0px;
- border-radius:5px;
-}
+ .signup{
+  height:65%;
+  width:100%;
+  margin-bottom:8%;
+  max-width:1000px;
+  background-color:white;
+  padding:30px;
+  padding-bottom:0px;
+  border-radius:5px;
+ }
 
-.signup form .user-info{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- grid-gap:30px;
- font-size:1.4rem;
-}
-
+ .signup form .user-info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-gap:30px;
+  font-size:1.4rem;
+ }
 form .user-info .input-box{
  margin-bottom:25px;
 }
@@ -85,7 +96,7 @@ form .user-info .input-box input{
 
 .header1 h2 {
   margin-top: 0;
-  font-size: 24px;
+  font-size: 26px;
 }
 
 .header1 #main_page_signup {
@@ -147,18 +158,21 @@ form .user-info .input-box input{
   text-decoration: none;
 }
 
- footer{
+footer{
+  margin:0;
+  margin-top: auto;
+  padding-left: 10px;
   background-color: #87CEEB;
+  border:solid 3px #647c7c ;
  }
-
+ 
  #main_menu {
-    width: 100%;
-    background-color: #4CAF50;
-    border:5px solid #5E5E5E;
-    border-radius:5px;
-    border-right:0;
-    padding:10px;
-  }
+  width: 100%;
+  background-color: #4CAF50;
+  box-sizing: border-box;
+  border:5px solid #333;
+  padding:10px;
+}
   
   #main_menu ul {
     list-style: none;
@@ -221,18 +235,18 @@ form .user-info .input-box input{
     color: #ff0;
   }
 
-.Description {
-  background-color: #dad8d8;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
+  .Description {
+    padding-left: 10px;
+    margin-bottom: 20px;
+    font-size:22px;
+    margin-top:20px;
+  }
 .Description h1 {
   margin-top: 0;
 }
 
 .Description p {
-  font-size: 16px;
+  font-size: 22px;
   line-height: 1.5;
 }
 
@@ -245,17 +259,18 @@ form .user-info .input-box input{
   text-decoration: underline;
 }
 
-  .Projects{
-    background-color: #647c7c;
-    border-top: 3px solid #070707;
-    border-right: 3px solid #070707;
-    border-left: 3px solid #070707;
-    border-bottom: 3px solid #070707;
-    border-radius: 10px;
-    padding:10px;
-    margin-left:10px;
-    margin-right:10px;
-  }
+.Projects{
+  background-color: #647c7c;
+  border-top: 3px solid #070707;
+  border-right: 3px solid #070707;
+  border-left: 3px solid #070707;
+  border-bottom: 3px solid #070707;
+  border-radius: 10px;
+  padding:10px;
+  margin-left:10px;
+  margin-right:10px;
+  margin-bottom: 20px;
+}
   .Projects h1{
     color: #fff;
     padding-top:10px;
@@ -304,13 +319,15 @@ form .user-info .input-box input{
   }
 
   .ticket-form {
-    width: 60%;
+    width: 70%;
+    color: #fff;
     margin-top:2%;
     margin-left:auto;
     margin-right:auto;
-    margin-bottom:auto;
-    border: 1px solid #ccc;
-    padding: 10px;
+    margin-bottom:10px;
+    border: 5px double #333;
+    padding: 15px;
+    background-color: #333;
   }
 
   #ticket-form{
@@ -341,7 +358,7 @@ form .user-info .input-box input{
   select {
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #fff;
     margin-top:1%;
     margin-bottom:1%;
   }
@@ -354,6 +371,17 @@ form .user-info .input-box input{
   .title{
    margin-top:1%;
   }
+  input:disabled {
+    background-color: #fff;
+    }
+    textarea:disabled {
+     background-color: #fff;
+  }
+    textarea.description-text{
+       font-size: 20px;
+       max-height: 600px;
+    }
+  
 
   .description-input-box .description-text{
    height:60em;
@@ -379,13 +407,14 @@ form .user-info .input-box input{
   #active_tickets {
     text-align: center;
     margin-top: 2rem;
+    text-decoration: underline ;
   }
 
   .active-ticket {
     margin: 2rem auto;
-    max-width: 600px;
+    width: 60%;
     padding: 2rem;
-    border: 1px solid #ddd;
+    border: 5px double #333;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
@@ -518,13 +547,13 @@ form .user-info .input-box input{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 85vh;
+    height: 70vh;
   }
   
   #chat-box {
     width: 50%;
     height: 80%;
-    border: 1px solid #ccc;
+    border: 2px solid #333;
     padding: 10px;
     overflow-y: scroll;
   }

@@ -29,9 +29,10 @@ if(isset($_SESSION['username'])){
           <li>
             <span>Edit Profile</span>
             <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+             <li><a href="#" onclick="showModal('change_username')">Change Username</a></li>
+             <li><a href="#" onclick="showModal('change_email')">Change Email</a></li>
+             <li><a href="#" onclick="showModal('change_password')">Change Password</a></li>
+             <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
             </ul>
           </li>
         </ul>
