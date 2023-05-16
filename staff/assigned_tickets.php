@@ -2,6 +2,13 @@
 session_start();
 $conn = new PDO('sqlite:../database.db');
 if($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent'){
+ if(isset($_SESSION['redirect'])){
+  unset($_SESSION['redirect']);
+ }
+ if(isset($_SESSION['message'])) {
+  echo '<script>alert("' . $_SESSION['message'] . '");</script>';
+  unset($_SESSION['message']);
+  }
  $user_id = $_SESSION['user_id'];
  $stmt = $conn->prepare('SELECT ticket_id FROM Assignments WHERE user_id = ?');
  $stmt->bindParam(1,$user_id);
@@ -115,7 +122,9 @@ if($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent'){
   $ticket_id = $row['ticket_id'];
   $url1 = '../tickets/view_tickets.php?ticket_id=' . $row['ticket_id'];
   $url2 = '../messages/messages.php?ticket_id=' . $row['ticket_id'];
+  $url4 = '../background/unassignments.php?ticket_id=' . $row['ticket_id'];
   $url3 = '../background/staff_close_tickets.php?ticket_id=' . $row['ticket_id'];
+  $url5 = '../background/change_ticket_priority.php?ticket_id=' . $row['ticket_id'];
   $stmt = $conn->prepare('SELECT * FROM Tickets WHERE ticket_id = ?');
   $stmt->bindParam(1,$ticket_id);
   $stmt->execute();
@@ -151,15 +160,53 @@ if($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent'){
    echo '<ul>';
     echo'<li><a href=' . $url1 . '>View Ticket</a></li>';
     echo'<li><a href=' . $url2 . '>Messages</a></li>';
+    echo '<li><a href="#" onclick="confirmUnassignTicket(\'' . $url4 . '\');">Unassign ticket</a></li>';
     echo '<li><a href="#" onclick="confirmCloseTicket(\'' . $url3 . '\');">Close ticket</a></li>';
+    echo '<li><a href="#" onclick="showModal(\'' . $url5 . '\');">Change Priority</a></li>';
    echo '</ul>';
+   echo '<div id="myModal" class="modal">
+   <div class="modal-content">
+     <span class="close" onclick="closeModal()">&times;</span>
+     <h2>Select Ticket Priority</h2>
+     <p>Please select a priority for this ticket:</p>
+     <form>
+       <div class="priority-options">
+         <label><input type="radio" name="priority" value="low"> Low</label>
+         <label><input type="radio" name="priority" value="medium"> Medium</label>
+         <label><input type="radio" name="priority" value="high"> High</label>
+       </div>
+       <input type="hidden" id="assignUrl">
+       <button type="button" onclick="confirmPriority()">Confirm</button>
+     </form>
+   </div>
+   </div>';
    echo '<script>
    function confirmCloseTicket(url) {
      if (confirm("Are you sure you want to close this ticket?")) {
       window.location.href = url;
      }
     }
+    function confirmUnassignTicket(url) {
+      if (confirm("Are you sure you want to unassign this ticket?")) {
+       window.location.href = url;
+      }
+     }
+     function showModal(url) {
+      document.getElementById("myModal").style.display = "block";
+      document.getElementById("assignUrl").value = url;
+    }
+    
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+    
+    function confirmPriority() {
+      const assignUrl = document.getElementById("assignUrl").value;
+      const priority = document.querySelector("input[name=\'priority\']:checked").value;
+      window.location.href = assignUrl + "&priority=" + priority;
+    }
    </script>';
+   echo '<hr>';
    echo '</div>';
   }
  }

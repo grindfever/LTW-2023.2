@@ -108,4 +108,18 @@ foreach ($table6 as $row) {
     echo "</tr>";
 }
 echo '</table>';
+
+$query7 = "SELECT * FROM FAQS";
+$stmt = $conn->query($query7);
+$table7 = $stmt->fetchAll();
+echo '<table>';
+echo "<tr><th>Question ID</th><th>Question</th><th>Answer</th></tr>";
+foreach ($table7 as $row) {
+    echo "<tr>";
+    echo "<td>" . $row['question_id'] . "</td>";
+    echo "<td>" . $row['question'] . "</td>";
+    echo "<td>" . $row['answer'] . "</td>";
+    echo "</tr>";
+}
+echo '</table>';
 ?>
