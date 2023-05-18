@@ -482,11 +482,12 @@ form .user-info .input-box input{
   
   #message_text {
     width: 45%;
+    resize: none;
     padding: 5px;
-    height:20px;
-    min-height:20px;
-    max-height: 150px;
-    overflow-y:auto;
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    overflow: scroll;
   }
   
   #chat-form button {
