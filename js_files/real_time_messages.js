@@ -1,6 +1,7 @@
 $(document).ready(function() {
   const maxHeight = 5000000000;
   $('#chat-box').scrollTop(maxHeight);
+  $(this).scrollTop(maxHeight);
 
   $.ajax({
     type: 'GET',
