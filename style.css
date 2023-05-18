@@ -538,6 +538,10 @@ form .user-info .input-box input{
   margin-left: auto;
  }
 
+ .text_message {
+  word-wrap: break-word;
+ }
+
 
   
   

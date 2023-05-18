@@ -43,7 +43,7 @@ function fetch_all_messages($conn) {
     $current_username = fetch_username_by_id($conn, $current_user_id);
 
     // Display all the messages associated to this ticket
-    $output .= '<div id = "' . $div_name . '" ><p id = "time_of_message">' . $current_username . '<small> ' .  $message['time_of_message'] . '</small></p><p>' . $message['content'] . '</p></div>';
+    $output .= '<div class="text_message" id = "' . $div_name . '" ><p id ='. $message['time_of_message'] . ' >' . $current_username . '<small> ' .  $message['time_of_message'] . '</small></p><p>' . $message['content'] . '</p></div>';
   }
   return $output;
 }
