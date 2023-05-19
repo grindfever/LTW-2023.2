@@ -220,9 +220,6 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
   </form>
 </div>
 </div>';
-<<<<<<< Updated upstream
-
-=======
 echo '<div id="DepartmentModal" class="modal1">
 <div class="modal-content1">
   <span class="close" onclick="closeModal1()">&times;</span>
@@ -243,7 +240,6 @@ echo '<div id="DepartmentModal" class="modal1">
   </form>
 </div>
 </div>';
->>>>>>> Stashed changes
 echo '<script>
 function showModal(url) {
   document.getElementById("myModal").style.display = "block";
@@ -259,8 +255,6 @@ function confirmPriority() {
   const priority = document.querySelector("input[name=\'priority\']:checked").value;
   window.location.href = assignUrl + "&priority=" + priority;
 }
-<<<<<<< Updated upstream
-=======
 function showModal1(url) {
   document.getElementById("DepartmentModal").style.display = "block";
   document.getElementById("assignUrl1").value = url;
@@ -275,7 +269,6 @@ function confirmDepartment() {
   const department = document.querySelector("input[name=\'department\']:checked").value;
   window.location.href = assignUrl + "&department=" + department;
 }
->>>>>>> Stashed changes
 
 function confirmCloseTicket(url) {
   if (confirm("Are you sure you want to close this ticket?")) {
