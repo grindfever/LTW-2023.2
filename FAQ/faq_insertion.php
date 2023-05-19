@@ -2,51 +2,29 @@
 session_start();
 ob_start();
 $conn = new PDO('sqlite:../database.db');
-function add_paragraphs($input) {
+if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent')){
+ function add_paragraphs($input) {
   $paragraphs = explode("\n", $input);
   $output = '';
   foreach ($paragraphs as $paragraph) {
    $output .= "<p>$paragraph</p>";
   }
   return $output;
-}
-$stmt = $conn->prepare('SELECT client_id from Tickets WHERE ticket_id = ?');
-$verification_ticket_id = $_GET['ticket_id'];
-$stmt->bindParam(1,$verification_ticket_id);
-$stmt->execute();
-$client_id = $stmt->fetchColumn();
-$stmt = $conn->prepare('SELECT ticket_department_id FROM Tickets WHERE ticket_id = ?');
-$stmt->bindParam(1,$verification_ticket_id);
-$stmt->execute();
-$ticket_department_id = $stmt->fetchColumn();
-$staff_user_id = $_SESSION['user_id'];
-$stmt = $conn->prepare('SELECT department_id FROM Admins WHERE admin_id = ?');
-$stmt->bindParam(1,$staff_user_id);
-$stmt->execute();
-$verification_ticket_department_id_admins = $stmt->fetchColumn();
-$stmt = $conn->prepare('SELECT department_id FROM Agents WHERE agent_id = ?');
-$stmt->bindParam(1,$staff_user_id);
-$stmt->execute();
-$verification_ticket_department_id_agents = $stmt->fetchColumn();
-
-if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SESSION['usertype'] == 'admin' && $_SESSION['admin_type'] == 'main admin') || ($_SESSION['usertype'] == 'admin' && $_SESSION['admin_type'] == 'local admin' && $ticket_department_id == $verification_ticket_department_id_admins) || ($_SESSION['usertype'] == 'admin' && $_SESSION['admin_type'] == 'main admin') || ($_SESSION['usertype'] == 'agent' && $ticket_department_id == $verification_ticket_department_id_agents)){
- if(isset($_GET['ticket_id'])){
-
+ }
 ?>
-
 <!DOCTYPE html>
 <html>
  <head>
- <title>Messages</title>
- <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-<header class = "header1">
- <h1>Trouble Tickets<h1>
- <h2>Here to help you solve all your tech problems!</h2>
- <a href="http://localhost:9000/main.php" class="home-button"><img src="../images/home_icon.png" alt="Home"></a>
-</header>
-<nav id="main_menu">
+  <title>My Tickets</title>
+  <link rel="stylesheet" href="../style.css">
+ </head>
+ <body>
+  <header class = "header1">
+    <h1>Trouble Tickets<h1>
+    <h2>Here to help you solve all your tech problems!</h2>
+    <a href="http://localhost:9000/main.php" class="home-button"><img src="../images/home_icon.png" alt="Home"></a>
+  </header>
+  <nav id="main_menu">
     <ul>
       <li>
         <span>My Profile</span>
@@ -55,9 +33,10 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
           <li>
             <span>Edit Profile</span>
             <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+             <li><a href="#" onclick="showModal('change_username')">Change Username</a></li>
+             <li><a href="#" onclick="showModal('change_email')">Change Email</a></li>
+             <li><a href="#" onclick="showModal('change_password')">Change Password</a></li>
+             <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -78,7 +57,7 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
+          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -95,7 +74,14 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
       <li>
        <span>FAQ</span>
        <ul>
-        <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
+        <li><a href="http://localhost:9000/faq.php">FAQS</a></li>
+        <?php
+         if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent')){
+        ?>
+        <li><a href="http://localhost:9000/FAQ/faq_insertion.php">Update FAQS</a></li>
+        <?php
+        }
+        ?>
        </ul>
       </li>
       <?php
@@ -135,49 +121,62 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
        }
       ?>
     </ul>
-  </nav>  
-  <div id="chat-box-wrapper">
-  <div id="chat-box">
-    <div id="chat_messages"></div>
-    <form id="chat-form" method = "POST">
-      <textarea class = "message-text" id = "message_text" name = "new_message"></textarea>
-      <button type="submit" id = "send_button">Send</button>
+  </nav>
+  <div class="faq-form">
+    <h2>FAQ Form</h2>
+    <form action="#" method="POST">
+      <div class="form-group">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question">
+      </div>
+      <div class="form-group">
+        <label for="answer">Answer:</label>
+        <textarea id="answer" name="answer" rows="7"></textarea>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Submit" name = "faq_submit" class="faq-submit">
+      </div>
     </form>
+    <?php
+     if(isset($_SESSION['message'])){
+      echo '<p>' . $_SESSION['message'] . '</p>';
+      unset($_SESSION['message']);
+     }
+    ?>
   </div>
-</div>
+  <?php
+   if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $question = $_POST['question'];
+    $answer = $_POST['answer'];
+    $question = filter_var($question, FILTER_SANITIZE_STRING);
+    $answer = filter_var($answer, FILTER_SANITIZE_STRING);
+    $question = trim($question);
+    $answer = trim($answer);
+    $answer_w_paragraphs = add_paragraphs($answer);
+    if(empty($answer) || empty($question)){
+     $_SESSION['message'] = 'You have post both a question and an answer to such question! Please try again!';
+     ob_clean();
+     header('Location:faq_insertion.php');
+     exit();
+    }
+    else{
+     $stmt = $conn->prepare('INSERT INTO FAQS(question,answer) VALUES(?,?)');
+     $stmt->bindParam(1,$question);
+     $stmt->bindParam(2,$answer);
+     $stmt->execute();
+     $_SESSION['message'] = 'The FAQ database has been successfully updated with your question!';
+     ob_clean();
+     header('Location:faq_insertion.php');
+     exit();
+    }
+   }
+   ?>
+   <footer>
+    <p>© Copyright 2021-2023 IT Ticket</p>
+    <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
+   </footer>
+   <script src="../js_files/click.js"></script>
+   <script src="../js_files/save_faq_input.js"></script>
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
- $new_message = $_POST['new_message'];
- $stmt = $conn->prepare('INSERT INTO Messages(receiver_id,sender_id,content,ticket_id,time_of_message) VALUES(?,?,?,?,?)');
- $sender_id = $_SESSION['user_id'];
- $receiver_id = $client_id;
- $content = add_paragraphs($new_message);
- $ticket_id = $_GET['ticket_id'];
- $time_of_message = date('d/m/Y H:i');
- $display_time_of_message = date('H:i');
- $stmt->bindParam(1,$sender_id);
- $stmt->bindParam(2,$receiver_id);
- $stmt->bindParam(3,$content);
- $stmt->bindParam(4,$ticket_id);
- $stmt->bindParam(5,$time_of_message);
- $stmt->execute();
- ob_clean();
- $refresh_url = 'messages.php?ticket_id=' . $ticket_id;
- header('Location:' . $refresh_url);
-}
-?>
-<footer>
- <p>© Copyright 2021-2023 IT Ticket</p>
- <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
-</footer>
-<script src="../js_files/click.js"></script>
-<script src="../js_files/close_ticket_confirmation.js"></script>
-<script src="../js_files/increasing-textarea-size.js"></script>
-<script src="../js_files/adjust-button-height.js"></script>
-<script src="../js_files/real_time_messages.js"></script>
-</body>
-</html>
-<?php
- }
 }
 ?>

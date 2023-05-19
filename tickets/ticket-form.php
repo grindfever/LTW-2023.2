@@ -63,11 +63,11 @@ if(isset($_SESSION['username'])){
       <li>
         <span>Projects and Products</span>
         <ul>
-          <li><a href="http://localhost:9000/projects&products/project-a.php">Project A</a></li>
-          <li><a href="http://localhost:9000/projects&products/project-b.php">Project B</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-a.php">Product A</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-b.php">Product B</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-c.php">Product C</a></li>
+          <li><a href="http://localhost:9000/projects&products/my-mentor.php">My Mentor</a></li>
+          <li><a href="http://localhost:9000/projects&products/meal-match.php">Meal Match</a></li>
+          <li><a href="http://localhost:9000/projects&products/event-planner.php">Event Planner</a></li>
+          <li><a href="http://localhost:9000/projects&products/smart-gym.php">Smart Gym</a></li>
+          <li><a href="http://localhost:9000/projects&products/healthy-habits.php">Healthy Habits</a></li>
         </ul>
       </li>
       <li>

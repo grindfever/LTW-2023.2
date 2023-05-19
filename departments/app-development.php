@@ -11,9 +11,15 @@ if(isset($_SESSION['username'])){
    </head>
    <body>
     <header class = "header1">
+<<<<<<< Updated upstream
       <h1>IT Ticket<h1>
       <h2>Here to help you solve all your tech problems!</h2>
       <a href="http://localhost:9000/main.php" class="home-button"><img src="../images/home_icon.png" alt="Home"></a>
+=======
+    <h1>IT Ticket<h1>
+    <h2>Here to help you solve all your tech problems!</h2>
+    <a href="http://localhost:9000/main.php" class="home-button"><img src="../images/home_icon.png" alt="Home"></a>
+>>>>>>> Stashed changes
       <div id = "login">
       <?php
        echo '<p>' . $_SESSION['username'] . '</p>';
@@ -60,11 +66,11 @@ if(isset($_SESSION['username'])){
       <li>
         <span>Projects and Products</span>
         <ul>
-          <li><a href="http://localhost:9000/projects&products/project-a.php">Project A</a></li>
-          <li><a href="http://localhost:9000/projects&products/project-b.php">Project B</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-a.php">Product A</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-b.php">Product B</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-c.php">Product C</a></li>
+          <li><a href="http://localhost:9000/projects&products/my-mentor.php">My Mentor</a></li>
+          <li><a href="http://localhost:9000/projects&products/meal-match.php">Meal Match</a></li>
+          <li><a href="http://localhost:9000/projects&products/event-planner.php">Event Planner</a></li>
+          <li><a href="http://localhost:9000/projects&products/smart-gym.php">Smart Gym</a></li>
+          <li><a href="http://localhost:9000/projects&products/healthy-habits.php">Healthy Habits</a></li>
         </ul>
       </li>
       <li>
