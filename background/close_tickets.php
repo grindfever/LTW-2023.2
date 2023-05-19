@@ -15,6 +15,10 @@ if(isset($_SESSION['username']) && $client_id = $_SESSION['user_id']){
   $stmt->bindParam(1,$ticket_status);
   $stmt->bindParam(2,$ticket_id);
   $stmt->execute();
+  $stmt = $conn->prepare('DELETE FROM Assignments WHERE ticket_id = ?');
+  $ticket_id = $_GET['ticket_id'];
+  $stmt->bindParam(1,$ticket_id);
+  $stmt->execute();
   $_SESSION['message'] = 'Your ticket has been closed successfully!';
   ob_clean();
   header('Location: ../tickets/active-tickets.php');

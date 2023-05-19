@@ -21,27 +21,32 @@ $agent_id = $stmt->fetchColumn();
 if(isset($_SESSION['username']) && $_SESSION['usertype'] != 'client'){
  if((isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'main admin') || $_SESSION['user_id'] == $agent_id || $_SESSION['user_id'] == $admin_id ){
   if(isset($_GET['ticket_id'])){
-   $stmt = $conn->prepare('UPDATE Tickets SET ticket_status = ? WHERE ticket_id = ?');
-   $ticket_status = 'closed';
    $ticket_id = $_GET['ticket_id'];
-   $stmt->bindParam(1,$ticket_status);
-   $stmt->bindParam(2,$ticket_id);
+   $user_id = $_SESSION['user_id'];
+   $stmt = $conn->prepare('DELETE FROM Assignments WHERE ticket_id = ? AND user_id = ?');
+   $stmt->bindParam(1,$ticket_id);
+   $stmt->bindParam(2,$user_id);
    $stmt->execute();
-   $stmt = $conn->prepare('DELETE FROM Assignments WHERE ticket_id = ?');
-   $ticket_id = $_GET['ticket_id'];
+   $stmt = $conn->prepare('SELECT * FROM Assignments WHERE ticket_id = ?');
    $stmt->bindParam(1,$ticket_id);
    $stmt->execute();
-   $_SESSION['message'] = 'Your ticket has been closed successfully!';
+   $result = $stmt->fetchAll();
+   if($result == false){
+    $stmt = $conn->prepare('UPDATE Tickets SET ticket_status = ? WHERE ticket_id = ?');
+    $ticket_status = 'open';
+    $stmt->bindParam(1,$ticket_status);
+    $stmt->bindParam(2,$ticket_id);
+    $stmt->execute();
+   }
+   $_SESSION['message'] = 'Ticket has been unassigned successfully!';
    ob_clean();
-   header('Location: ../staff/ticket-inbox.php');
-   exit();
+   header('Location:../staff/assigned_tickets.php');
   }
  }
- else{
-  $_SESSION['message'] = 'You do not have permission to close this ticket!';
-  ob_clean();
-  header('Location: ../staff/ticket-inbox.php');
-  exit();
- }
+}
+else{
+ $_SESSION['message'] = 'This ticket is not assigned to you!';
+ ob_clean();
+ header('Location:../staff/assigned_tickets.php');
 }
 ?>

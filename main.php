@@ -2,8 +2,38 @@
 $conn = new PDO('sqlite:database.db');
 session_start();
 ob_start();
+if(isset($_SESSION['pop_up_message'])){
+ echo '<script>alert("' . $_SESSION['pop_up_message'] . '");</script>';
+ unset($_SESSION['pop_up_message']);
+}
+function is_valid_username($username) {
+  if (strlen($username) < 8){
+   return false;
+  }
+  if(!preg_match('/[a-z]/' , $username) || !preg_match('/[0-9]/',$username)) {
+   return false;
+  }
+  if(preg_match('/[A-Z]/' , $username)){
+   return false;
+  }
+  return true;
+ }
+ function is_valid_email($email){
+  if (preg_match("/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
+   return true;
+ } 
+  return false;
+ }
+ function is_valid_password($password) {
+  if (strlen($password) < 8) {
+    return false;
+  }
+  if (!preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) || !preg_match('/[0-9]/', $password)) {
+    return false;
+  }
+  return true;
+}
 ?>
-
 <!DOCTYPE html>
 <html>
  <head>
@@ -19,6 +49,7 @@ ob_start();
      <?php
      if(isset($_SESSION['username'])){
       echo '<p>' .$_SESSION['username']. '</p>';
+      echo '<a href="http://localhost:9000/background/logout.php" class="white_lock"><img src="images/white_lock.png"></a>';
      }
      else{
       ?>
@@ -106,13 +137,19 @@ ob_start();
                $_SESSION['username'] = $stored_password_row['username'];
                $_SESSION['email'] = $stored_password_row['email'];
                $_SESSION['timeout'] = time() + 3600;
-               $_SESSION['usertype'] = $stored_password_row['user_type'];
+               $_SESSION['usertype'] = $stored_password_row['usertype'];
                $date = date('d/m/Y H:i');
-               $stmt = $conn->prepare('INSERT INTO Logins VALUES (?,?) WHERE user_id = ?');
-               $stmt->bindParam(1,$_SESSION['user_id']);
-               $stmt->bindParam(2,$date);
-               $stmt->bindParam(3,$_SESSION['user_id']);
+               $stmt = $conn->prepare('UPDATE Logins SET login_time = ? WHERE user_id = ?');
+               $stmt->bindParam(1,$date);
+               $stmt->bindParam(2,$_SESSION['user_id']);
                $stmt->execute();
+               if($_SESSION['usertype'] == 'admin'){
+                $stmt = $conn->prepare('SELECT admin_type FROM Admins WHERE admin_id = ?');
+                $stmt->bindParam(1,$stored_password_row['user_id']);
+                $stmt->execute();
+                $admin_type = $stmt->fetchColumn();
+                $_SESSION['admin_type'] = $admin_type;
+               }
                ob_clean();
                header('Location: main.php'); 
                exit();
@@ -148,9 +185,10 @@ ob_start();
           <li>
             <span>Edit Profile</span>
             <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+             <li><a href="#" onclick="showModal('change_username')">Change Username</a></li>
+             <li><a href="#" onclick="showModal('change_email')">Change Email</a></li>
+             <li><a href="#" onclick="showModal('change_password')">Change Password</a></li>
+             <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -171,7 +209,7 @@ ob_start();
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
+          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -188,7 +226,14 @@ ob_start();
       <li>
        <span>FAQ</span>
        <ul>
-        <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
+        <li><a href="http://localhost:9000/FAQ/faq.php">FAQS</a></li>
+        <?php
+         if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent')){
+        ?>
+        <li><a href="http://localhost:9000/FAQ/faq_insertion.php">Update FAQS</a></li>
+        <?php
+        }
+        ?>
        </ul>
       </li>
       <?php
@@ -258,8 +303,163 @@ ob_start();
      <p>© Copyright 2021-2023 IT Ticket</p>
      <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
     </footer>
+    <div class = "change_user_data" id = "change_username">
+    <span class="close" onclick="closeModal('change_username')">&times;</span>
+    <form action = "" method = "POST">
+       <div id = "username_change">
+        <div class = "info_changes">
+         <span class = "info">Current Username/Email</span>
+         <input type = "text" name = "username_or_email">
+        </div>
+        <div class = "info_changes">
+         <span class = "info">Password</span>
+         <input type = "password" name = "password">
+        </div>
+        <div class = "info_changes">
+         <span class = "info">New username</span>
+         <input type = "text" name = "new_username">
+        </div>
+        <div class = "button">
+         <input type = "submit" name = "change_username" value = "Change">
+        </div>
+       </div>
+      </form>
+    </div>
+    <div class = "change_user_data" id = "change_email">
+    <span class="close" onclick="closeModal('change_email')">&times;</span>
+    <form action = "" method = "POST">
+       <div id = "email_change">
+        <div class = "info_changes">
+         <span class = "info">Current Username/Email</span>
+         <input type = "text" name = "username_or_email">
+        </div>
+        <div class = "info_changes">
+         <span class = "info">Password</span>
+         <input type = "password" name = "password">
+        </div>
+        <div class = "info_changes">
+         <span class = "info">New Email</span>
+         <input type = "email" name = "new_email">
+        </div>
+        <div class = "button">
+         <input type = "submit" name = "change_email" value = "Change">
+        </div>
+       </div>
+      </form>
+    </div>
+    <div class = "change_user_data" id = "change_password">
+    <span class="close" onclick="closeModal('change_password')">&times;</span>
+    <form action = "" method = "POST">
+       <div id = "password_change">
+        <div class = "info_changes">
+         <span class = "info">Current Username/Email</span>
+         <input type = "text" name = "username_or_email">
+        </div>
+        <div class = "info_changes">
+         <span class = "info">Password</span>
+         <input type = "password" name = "password">
+        </div>
+        <div class = "info_changes">
+         <span class = "info">New Password</span>
+         <input type = "password" name = "new_password">
+        </div>
+        <div class = "button">
+         <input type = "submit" name = "change_password" value = "Change">
+        </div>
+       </div>
+      </form>
+    </div>
+    <?php
+     if(isset($_POST['change_username'])){
+        $current_username_or_email = $_POST['username_or_email'];
+        $current_password = $_POST['password'];
+        $new_username = $_POST['new_username'];
+        $stmt = $conn->prepare('SELECT passwrd FROM Users WHERE user_id = ?');
+        $user_id = $_SESSION['user_id'];
+        $stmt->bindParam(1,$user_id);
+        $stmt->execute();
+        $verification_password = $stmt->fetchColumn();
+        if(($_SESSION['email'] == $current_username_or_email) || ($_SESSION['username'] == $current_username_or_email) && password_verify($current_password,$verification_password)){
+         if(is_valid_username($new_username)){
+          try{
+          $stmt = $conn->prepare('UPDATE Users SET username = ? WHERE user_id = ?');
+          $stmt->bindParam(1,$new_username);
+          $stmt->bindParam(2,$user_id);
+          $stmt->execute();
+          $_SESSION['username'] = $new_username;
+          $_SESSION['pop_up_message'] = 'Your username was successfully changed!';
+          ob_clean();
+          header('Location:main.php');
+          exit();
+          }
+          catch(PDOException $e){
+           $_SESSION['pop_up_message'] = 'Username already exists! Please try again.';
+           ob_clean();
+           header('Location:main.php');
+           exit();
+          }
+         }
+         else{
+          $_SESSION['pop_up_message'] = 'Your new username must contain at least 8 characters, and only uppercase letters and numbers! Please try again.';
+          ob_clean();
+          header('Location:main.php');
+          exit();
+         }
+        }
+        else{
+         $_SESSION['pop_up_message'] = 'Invalid username/email or password! Please try again!';
+         ob_clean();
+         header('Location:main.php');
+         exit();
+        }
+      }
+      if(isset($_POST['change_email'])){
+        $current_username_or_email = $_POST['username_or_email'];
+        $current_password = $_POST['password'];
+        $new_email = $_POST['new_email'];
+        $stmt = $conn->prepare('SELECT passwrd FROM Users WHERE user_id = ?');
+        $user_id = $_SESSION['user_id'];
+        $stmt->bindParam(1,$user_id);
+        $stmt->execute();
+        $verification_password = $stmt->fetchColumn();
+        if(($_SESSION['email'] == $current_username_or_email) || ($_SESSION['username'] == $current_username_or_email) && password_verify($current_password,$verification_password)){
+         if(is_valid_email($new_email)){
+          try{
+          $stmt = $conn->prepare('UPDATE Users SET email = ? WHERE user_id = ?');
+          $stmt->bindParam(1,$new_email);
+          $stmt->bindParam(2,$user_id);
+          $stmt->execute();
+          $_SESSION['email'] = $new_email;
+          $_SESSION['pop_up_message'] = 'Your email address was successfully changed!';
+          ob_clean();
+          header('Location:main.php');
+          exit();
+          }
+          catch(PDOException $e){
+           $_SESSION['pop_up_message'] = 'Email address already exists! Please try again.';
+           ob_clean();
+           header('Location:main.php');
+           exit();
+          }
+         }
+         else{
+          $_SESSION['pop_up_message'] = 'Your new email does not have the correct format! Please try again.';
+          ob_clean();
+          header('Location:main.php');
+          exit();
+         }
+        }
+        else{
+         $_SESSION['pop_up_message'] = 'Invalid username/email or password! Please try again!';
+         ob_clean();
+         header('Location:main.php');
+         exit();
+        }
+      }
+    ?>
     <script src="js_files/click.js"></script>
- </body>
-</html>
+    <script src="js_files/show_modal.js"></script>
+  </body>
+ </html>
 
 

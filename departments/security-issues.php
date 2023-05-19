@@ -12,8 +12,9 @@ if(isset($_SESSION['username'])){
    </head>
    <body>
     <header class = "header1">
-      <h1>Trouble Tickets<h1>
-      <h2>Here to help you solve all your tech problems!</h2>
+    <h1>IT Ticket<h1>
+    <h2>Here to help you solve all your tech problems!</h2>
+    <a href="http://localhost:9000/main.php" class="home-button"><img src="images/home_icon.png" alt="Home"></a>
       <div id = "login">
        <?php
        echo '<p>' . $_SESSION['username'] . '</p>';
@@ -30,9 +31,10 @@ if(isset($_SESSION['username'])){
           <li>
             <span>Edit Profile</span>
             <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+             <li><a href="#" onclick="showModal('change_username')">Change Username</a></li>
+             <li><a href="#" onclick="showModal('change_email')">Change Email</a></li>
+             <li><a href="#" onclick="showModal('change_password')">Change Password</a></li>
+             <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
             </ul>
           </li>
         </ul>

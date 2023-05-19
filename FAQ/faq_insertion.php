@@ -2,7 +2,7 @@
 session_start();
 ob_start();
 $conn = new PDO('sqlite:../database.db');
-if(isset($_SESSION['username'])){
+if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent')){
  function add_paragraphs($input) {
   $paragraphs = explode("\n", $input);
   $output = '';
@@ -10,7 +10,7 @@ if(isset($_SESSION['username'])){
    $output .= "<p>$paragraph</p>";
   }
   return $output;
-}
+ }
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,7 +74,14 @@ if(isset($_SESSION['username'])){
       <li>
        <span>FAQ</span>
        <ul>
-        <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
+        <li><a href="http://localhost:9000/faq.php">FAQS</a></li>
+        <?php
+         if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent')){
+        ?>
+        <li><a href="http://localhost:9000/FAQ/faq_insertion.php">Update FAQS</a></li>
+        <?php
+        }
+        ?>
        </ul>
       </li>
       <?php
@@ -115,89 +122,61 @@ if(isset($_SESSION['username'])){
       ?>
     </ul>
   </nav>
-  <div class = "ticket-form">
-    <form method= "POST" action = "#">
-     <h1 id = "ticket-form">New Ticket</h1>
-     <div class = "ticket-info">
-      <div class = "title-input-box">
-        <span class = "title">Title</span>
-        <input type = "text" id = "ticket_title" name = "title">
+  <div class="faq-form">
+    <h2>FAQ Form</h2>
+    <form action="#" method="POST">
+      <div class="form-group">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question">
       </div>
-        <label for="Department">Choose a department:</label>
-        <select name="department" id="department">
-          <option value="Software Technical Support">Software Technical Support</option>
-          <option value="Hardware Technical Support">Hardware Technical Support</option>
-          <option value="Costumer Service">Costumer Service</option>
-          <option value="Web Development">Web Development</option>
-          <option value="App Development">App Development</option>
-          <option value="Network Support">Network Support</option>
-          <option value="Security Issues">Security Issues</option>
-        </select>
-      <div class = "description-input-box">
-        <span class = "description">Description</span>
-        <textarea class = "description-text" id = "description_text" name = "description"></textarea>
+      <div class="form-group">
+        <label for="answer">Answer:</label>
+        <textarea id="answer" name="answer" rows="7"></textarea>
       </div>
-      <div class = "submission">
-        <input type = "submit" name = "submit" value = "Submit">
+      <div class="form-group">
+        <input type="submit" value="Submit" name = "faq_submit" class="faq-submit">
       </div>
-     </div>
-     <?php
-       if(isset($_POST['submit'])){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-         $client_id = $_SESSION['user_id'];
-         $ticket_title = $_POST['title'];
-         $ticket_department = $_POST['department'];
-         $description = $_POST['description'];
-         $ticket_description = add_paragraphs($_POST['description']);
-         $ticket_status = 'open';
-         $time = date('d/m/Y H:i');
-         ;
-         if(!empty($ticket_title) and !empty($description)){
-          try{
-          $stmt = $conn->prepare('SELECT department_id FROM Departments WHERE department_name = ?');
-          $stmt->bindParam(1,$ticket_department);
-          $stmt->execute();
-          $ticket_department_id = $stmt->fetchColumn();
-          $stmt = $conn->prepare('INSERT INTO Tickets(client_id,ticket_title,ticket_description,ticket_department_id,ticket_status,ticket_register_time) VALUES(?,?,?,?,?,?)');
-          $stmt->bindParam(1,$client_id);
-          $stmt->bindParam(2,$ticket_title);
-          $stmt->bindParam(3,$ticket_description);
-          $stmt->bindParam(4,$ticket_department_id);
-          $stmt->bindParam(5,$ticket_status);
-          $stmt->bindParam(6,$time);
-          $stmt->execute();
-          $_SESSION['message'] = 'Your ticket was successfully submitted';
-          ob_clean();
-          header('Location: ticket-form.php');
-          exit();
-         }
-         catch (PDOException $e) {
-          echo 'Error: ' . $e->getMessage();
-        }
-        }
-         else{
-          $_SESSION['message'] = 'You must fill in all the required fields!';
-          ob_clean();
-          header('Location: ticket-form.php');
-          exit();
-         }
-        }
-       }
-       if(isset($_SESSION['message'])){
-        echo '<p>' . $_SESSION['message'] . '</p>';
-        unset($_SESSION['message']);
-       }
-    ?>
     </form>
+    <?php
+     if(isset($_SESSION['message'])){
+      echo '<p>' . $_SESSION['message'] . '</p>';
+      unset($_SESSION['message']);
+     }
+    ?>
   </div>
-  <footer>
+  <?php
+   if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $question = $_POST['question'];
+    $answer = $_POST['answer'];
+    $question = filter_var($question, FILTER_SANITIZE_STRING);
+    $answer = filter_var($answer, FILTER_SANITIZE_STRING);
+    $question = trim($question);
+    $answer = trim($answer);
+    $answer_w_paragraphs = add_paragraphs($answer);
+    if(empty($answer) || empty($question)){
+     $_SESSION['message'] = 'You have post both a question and an answer to such question! Please try again!';
+     ob_clean();
+     header('Location:faq_insertion.php');
+     exit();
+    }
+    else{
+     $stmt = $conn->prepare('INSERT INTO FAQS(question,answer) VALUES(?,?)');
+     $stmt->bindParam(1,$question);
+     $stmt->bindParam(2,$answer);
+     $stmt->execute();
+     $_SESSION['message'] = 'The FAQ database has been successfully updated with your question!';
+     ob_clean();
+     header('Location:faq_insertion.php');
+     exit();
+    }
+   }
+   ?>
+   <footer>
     <p>© Copyright 2021-2023 IT Ticket</p>
     <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
    </footer>
-  <script src="../js_files/click.js"></script>
-  <script src="../js_files/save_ticket_input.js"></script>
- </body>
-</html>
+   <script src="../js_files/click.js"></script>
+   <script src="../js_files/save_faq_input.js"></script>
 <?php
 }
 ?>

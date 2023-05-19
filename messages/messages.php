@@ -3,57 +3,13 @@ session_start();
 ob_start();
 $conn = new PDO('sqlite:../database.db');
 
-function fetch_messages_by_ticket_id($conn) {
-  $ticket_id = $_GET['ticket_id'];
-
-  $stmt = $conn->prepare('SELECT * FROM Messages WHERE ticket_id=?');
-  $stmt->bindParam(1, $ticket_id);
-  $stmt->execute();
-
-  $messages = $stmt->fetchAll();
-
-  return $messages;
-}
-
-function fetch_username_by_id($conn, $user_id) {
-  $stmt = $conn->prepare('SELECT username FROM Users WHERE user_id = ' . $user_id);
-  $stmt->execute();
-  $username = $stmt->fetch()[0];
-
-  return $username;
-}
-
-function fetch_all_messages($conn) {
-  // Get all mesages assigned to this ticket
-  $messages = fetch_messages_by_ticket_id($conn);
-
-  // Get current user id <=> sender id
-  $current_user_id = $_SESSION['user_id'];
-
-  $output = '';
-  foreach($messages as $message) {
-    if($message['sender_id'] == $current_user_id){
-      $div_name = 'my_message';
-    }
-    else{
-      $div_name = 'received_message';
-    }
-
-    // TODO: Make sure the username is right
-    $current_username = fetch_username_by_id($conn, $current_user_id);
-
-    // Display all the messages associated to this ticket
-    $output .= '<div class="text_message" id = "' . $div_name . '" ><p id ='. $message['time_of_message'] . ' >' . $current_username . '<small> ' .  $message['time_of_message'] . '</small></p><p>' . $message['content'] . '</p></div>';
-  }
-  return $output;
-}
-
 $stmt = $conn->prepare('SELECT client_id from Tickets WHERE ticket_id = ?');
 $verification_ticket_id = $_GET['ticket_id'];
 $stmt->bindParam(1,$verification_ticket_id);
 $stmt->execute();
 
 $client_id = $stmt->fetchColumn();
+$_SESSION['client_id'] = $client_id;
 $stmt = $conn->prepare('SELECT ticket_department_id FROM Tickets WHERE ticket_id = ?');
 $stmt->bindParam(1,$verification_ticket_id);
 $stmt->execute();
@@ -180,37 +136,17 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
   </nav>  
   <div id="chat-box-wrapper">
     <div id="chat-box">
-      <?php 
-      echo fetch_all_messages($conn);
-      ?>
+    <?php
+      $_SESSION['ticket_id'] = $_GET['ticket_id'];
+      include "chat-box.php";
+    ?>
     </div>
   </div>
 <form method="POST" id="chat-form">
        <textarea id="message_text" name="new_message" placeholder="Enter message here"></textarea>
        <input type="submit" id="send_button" value="Send"/>
 </form>
-<?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-  $stmt = $conn->prepare('INSERT INTO Messages(receiver_id,sender_id,content,ticket_id,time_of_message) VALUES(?,?,?,?,?)');
-  
-  $new_message = $_POST['new_message'];
-  $sender_id = $_SESSION['user_id'];
-  $receiver_id = $client_id;
-  $ticket_id = $_GET['ticket_id'];
-  $time_of_message = date('d/m/Y H:i');
 
-  $stmt->bindParam(1,$receiver_id);
-  $stmt->bindParam(2,$sender_id);
-  $stmt->bindParam(3,$new_message);
-  $stmt->bindParam(4,$ticket_id);
-  $stmt->bindParam(5,$time_of_message);
-  $stmt->execute();
-
-  ob_clean();
-  $refresh_url = 'messages.php?ticket_id=' . $ticket_id;
-  header('Location:' . $refresh_url);
-}
-?>
 <footer>
  <p>© Copyright 2021-2023 IT Ticket</p>
  <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>

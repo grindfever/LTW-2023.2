@@ -68,9 +68,10 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
           <li>
             <span>Edit Profile</span>
             <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+             <li><a href="#" onclick="showModal('change_username')">Change Username</a></li>
+             <li><a href="#" onclick="showModal('change_email')">Change Email</a></li>
+             <li><a href="#" onclick="showModal('change_password')">Change Password</a></li>
+             <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -91,7 +92,7 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
+          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -155,6 +156,7 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
   $url1 = '../tickets/view_tickets.php?ticket_id=' . $row['ticket_id'];
   $url2 = '../background/assignments.php?ticket_id=' . $row['ticket_id'];
   $url3 = '../background/staff_close_tickets.php?ticket_id=' . $row['ticket_id'];
+  $url4 = '../background/transfer_ticket_department.php?ticket_id=' . $row['ticket_id'];
   $stmt = $conn->prepare('SELECT * FROM Users WHERE user_id = ?');
   $stmt->bindParam(1,$row['client_id']);
   $stmt->execute();
@@ -181,11 +183,25 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
   }
   echo '<h1> Status </h1>';
   echo '<p>' . $row['ticket_status'] . '</p>';
+  if($row['ticket_status'] == 'assigned'){
+   echo '<h1> Priority </h1>';
+   echo '<p>' . $row['ticket_priority'] . '</p>';
+  }
   echo '<h1> Time </h1>';
   echo '<p>' . $row['ticket_register_time'] . '</p>';
   echo '<ul>';
    echo'<li><a href=' . $url1 . '>View Ticket</a></li>';
+<<<<<<< Updated upstream
    echo '<li><a href="#" onclick="showModal(\'' . $url2 . '\');">Assign Ticket</a></li>';
+=======
+   if($row['ticket_status'] == 'open'){
+    echo '<li><a href="#" onclick="showModal(\'' . $url2 . '\');">Assign Ticket</a></li>';
+   }
+   else{
+    echo '<li><a href=' . $url2 . '>Assign Ticket</a></li>';
+   }
+   echo '<li><a href="#" onclick="showModal1(\'' . $url4 . '\');">Transfer ticket</a></li>';
+>>>>>>> Stashed changes
    echo '<li><a href="#" onclick="confirmCloseTicket(\'' . $url3 . '\');">Close ticket</a></li>';
   echo '</ul>';
   echo '<div id="myModal" class="modal">
@@ -204,7 +220,30 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
   </form>
 </div>
 </div>';
+<<<<<<< Updated upstream
 
+=======
+echo '<div id="DepartmentModal" class="modal1">
+<div class="modal-content1">
+  <span class="close" onclick="closeModal1()">&times;</span>
+  <h2>Ticket Department</h2>
+  <p>Select which department you wish to transfer this ticket to:</p>
+  <form>
+    <div class="department-options">
+      <label><input type="radio" name="department" value=746>Hardware Technical Support</label>
+      <label><input type="radio" name="department" value=745>Software Technical Support</label>
+      <label><input type="radio" name="department" value=751>App Development</label>
+      <label><input type="radio" name="department" value=750>Web Development</label>
+      <label><input type="radio" name="department" value=747>Network Support</label>
+      <label><input type="radio" name="department" value=749>Security Issues</label>
+      <label><input type="radio" name="department" value=748>Customer Service</label>
+      <input type="hidden" id="assignUrl1">
+      <button type="button" onclick="confirmDepartment()">Confirm</button>
+    </div>
+  </form>
+</div>
+</div>';
+>>>>>>> Stashed changes
 echo '<script>
 function showModal(url) {
   document.getElementById("myModal").style.display = "block";
@@ -220,6 +259,23 @@ function confirmPriority() {
   const priority = document.querySelector("input[name=\'priority\']:checked").value;
   window.location.href = assignUrl + "&priority=" + priority;
 }
+<<<<<<< Updated upstream
+=======
+function showModal1(url) {
+  document.getElementById("DepartmentModal").style.display = "block";
+  document.getElementById("assignUrl1").value = url;
+}
+
+function closeModal1() {
+  document.getElementById("DepartmentModal").style.display = "none";
+}
+
+function confirmDepartment() {
+  const assignUrl = document.getElementById("assignUrl1").value;
+  const department = document.querySelector("input[name=\'department\']:checked").value;
+  window.location.href = assignUrl + "&department=" + department;
+}
+>>>>>>> Stashed changes
 
 function confirmCloseTicket(url) {
   if (confirm("Are you sure you want to close this ticket?")) {
