@@ -82,7 +82,12 @@ if(isset($_SESSION['username'])){
     <h2>How It Works</h2>
     <p>
       Meal Match simplifies the process of finding and booking dining experiences. As a user, you can browse through a variety of chef profiles, menus, and available dates. Once you find a chef or a dining experience that captures your interest, you can make a reservation and communicate directly with the chef to discuss any specific requirements or dietary restrictions.</p>
+<<<<<<< Updated upstream
     <h2>Benefits of Meal Match</h2>
+=======
+    <div class="mealmatch-container">
+      <h2>Benefits of Meal Match :</h2>
+>>>>>>> Stashed changes
     <ul>
       <li>Discover unique dining experiences curated by talented chefs</li>
       <li>Enjoy personalized and customized menus</li>
@@ -90,6 +95,11 @@ if(isset($_SESSION['username'])){
       <li>Create memorable dining experiences for special occasions</li>
       <li>Support local culinary talent and the sharing economy</li>
     </ul>
+<<<<<<< Updated upstream
+=======
+    <img class="mealmatch-img" src="../images/meal.jpg" alt="mealmatch">
+    </div>
+>>>>>>> Stashed changes
     <p>
       For any inquiries or assistance regarding Meal Match, please feel free to contact our support team at support@mealmatch.com or call us at +1-123-456-7890. We are here to help you explore a world of culinary delights.</p>
   </div>

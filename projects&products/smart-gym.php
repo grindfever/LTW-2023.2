@@ -79,8 +79,13 @@ if(isset($_SESSION['username'])){
   <p>
     SmartGym is the ultimate fitness companion, designed to help you reach your fitness goals faster and more effectively. Whether you're looking to lose weight, build muscle, or simply maintain your current fitness level, SmartGym has got you covered.</p>
   <h2>Features and Benefits</h2>
+<<<<<<< Updated upstream
   <p>
     With SmartGym, you get access to a range of cutting-edge features and benefits that are guaranteed to take your fitness journey to the next level:</p>
+=======
+  <p>With SmartGym, you get access to a range of cutting-edge features and benefits that are guaranteed to take your fitness journey to the next level:</p>
+    <div class ="smartgym-container">
+>>>>>>> Stashed changes
   <ul>
     <li>Personalized workout plans tailored to your fitness goals, preferences, and schedule</li>
     <li>Real-time coaching and feedback to ensure proper form and technique</li>
@@ -88,11 +93,19 @@ if(isset($_SESSION['username'])){
     <li>Integration with popular fitness apps and wearables for seamless tracking and monitoring</li>
     <li>Access to a community of like-minded fitness enthusiasts for motivation and support</li>
   </ul>
+<<<<<<< Updated upstream
   <p>
     With SmartGym, you don't have to be a fitness expert to get results. Our easy-to-use platform and intuitive interface make it simple and convenient to get started and stay on track. Whether you're at home, in the gym, or on the go, SmartGym is always with you, providing the guidance and support you need to reach your fitness goals.</p>
   <h2>Try SmartGym Today</h2>
   <p>
     Ready to take your fitness journey to the next level? Sign up for SmartGym today and start your free trial. For any inquiries or assistance regarding SmartGym, please feel free to contact our support team at support@smartgym.com or call us at +1-123-456-7890. We are here to help you achieve your fitness goals.</p>
+=======
+  <img class="smartgym-img" src="../images/gym.jpg" alt="smartgym">
+</div>
+  <p> With SmartGym, you don't have to be a fitness expert to get results. Our easy-to-use platform and intuitive interface make it simple and convenient to get started and stay on track. Whether you're at home, in the gym, or on the go, SmartGym is always with you, providing the guidance and support you need to reach your fitness goals.</p>
+  <h2>Try SmartGym Today</h2>
+  <p> Ready to take your fitness journey to the next level? Sign up for SmartGym today and start your free trial. For any inquiries or assistance regarding SmartGym, please feel free to contact our support team at support@smartgym.com or call us at +1-123-456-7890. We are here to help you achieve your fitness goals.</p>
+>>>>>>> Stashed changes
 </div>
 <footer>
       <p>© Copyright 2021-2023 IT Ticket</p>

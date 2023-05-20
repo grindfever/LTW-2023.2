@@ -76,12 +76,20 @@ if(isset($_SESSION['username'])){
   </nav>  
 <div class="projprod">
     <h1>Learn with MyMentor</h1>
+<<<<<<< Updated upstream
     <p>
       MyMentor is a comprehensive mentorship platform designed to connect individuals with experienced professionals in various fields. Whether you are a student seeking guidance in your academic journey, a professional looking to enhance your skills, or someone exploring new career paths, MyMentor provides you with a valuable opportunity to connect with mentors who can guide and support you.</p>
     <h2>How It Works</h2>
     <p>
       MyMentor operates on a simple and user-friendly platform. After signing up and creating your profile, you can search for mentors based on your interests, goals, and preferences. Once you find a suitable mentor, you can send them a mentoring request. If the mentor accepts your request, you can start engaging in meaningful conversations, exchanging knowledge, and receiving valuable advice.</p>
     <h2>Benefits of MyMentor</h2>
+=======
+    <p>MyMentor is a comprehensive mentorship platform designed to connect individuals with experienced professionals in various fields. Whether you are a student seeking guidance in your academic journey, a professional looking to enhance your skills, or someone exploring new career paths, MyMentor provides you with a valuable opportunity to connect with mentors who can guide and support you.</p>
+    <h2>How It Works</h2>
+    <p>MyMentor operates on a simple and user-friendly platform. After signing up and creating your profile, you can search for mentors based on your interests, goals, and preferences. Once you find a suitable mentor, you can send them a mentoring request. If the mentor accepts your request, you can start engaging in meaningful conversations, exchanging knowledge, and receiving valuable advice.</p>
+    <div class="mymentor-container">
+    <h2>Benefits of MyMentor :</h2>
+>>>>>>> Stashed changes
     <ul>
         <li>Gain insights from experienced professionals in your field of interest</li>
         <li>Receive personalized guidance tailored to your specific needs and goals</li>
@@ -89,6 +97,11 @@ if(isset($_SESSION['username'])){
         <li>Enhance your skills, knowledge, and confidence</li>
         <li>Stay motivated and focused on your personal and professional development</li>
     </ul>
+<<<<<<< Updated upstream
+=======
+    <img class="mymentor-img" src="../images/mentor.jpg" alt="mymentor">
+</div>
+>>>>>>> Stashed changes
     <p>
       For any inquiries or assistance regarding MyMentor, please feel free to contact our support team at support@mymentor.com or call us at +1-123-456-7890. We are here to help you make the most out of your mentorship experience.</p>
     </div>

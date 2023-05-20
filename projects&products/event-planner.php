@@ -78,7 +78,13 @@ if(isset($_SESSION['username'])){
   <h1>About Event Planner</h1>
   <p>
     The Event Planner is a powerful tool designed to assist you in organizing and managing your events seamlessly. Whether you are planning a small gathering, a corporate conference, or a grand celebration, our Event Planner provides you with the necessary features and resources to ensure a successful and memorable event.</p>
+<<<<<<< Updated upstream
   <h2>Key Features</h2>
+=======
+   
+    <div class="eventplanner-container">
+       <h2>Key Features :</h2>
+>>>>>>> Stashed changes
   <ul>
     <li>Event creation and customization options</li>
     <li>Guest management and RSVP tracking</li>
@@ -88,6 +94,11 @@ if(isset($_SESSION['username'])){
     <li>Event promotion and marketing tools</li>
     <li>Real-time communication and updates</li>
   </ul>
+<<<<<<< Updated upstream
+=======
+  <img class="eventplanner-img" src="../images/event.png" alt="wedding plan">
+</div>
+>>>>>>> Stashed changes
   <h2>How It Works</h2>
   <p>
     The Event Planner simplifies the event planning process. To get started, sign up for an account and create your event. Customize the event details, such as the date, time, venue, and theme. Manage your guest list by sending invitations and tracking RSVPs. Keep track of tasks and deadlines with the integrated task management feature. Monitor your budget and expenses to ensure you stay on track. Collaborate with vendors and event team members to streamline the planning process. Promote your event using the built-in marketing tools and communicate updates to your attendees in real-time.</p>
