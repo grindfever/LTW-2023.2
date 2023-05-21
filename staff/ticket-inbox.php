@@ -79,9 +79,9 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
       <li>
         <span>Tickets</span>
         <ul>
-          <li><a href="http://localhost:9000/tickets/ticket-form.php">New Ticket</a></li>
-          <li><a href="http://localhost:9000/tickets/active-tickets.php">Active Tickets</a></li>
-          <li><a href="http://localhost:9000/tickets/closed-tickets.php">Previous Tickets</a></li>
+          <li><a href="http://localhost:9000/tickets/ticket_form.php">New Ticket</a></li>
+          <li><a href="http://localhost:9000/tickets/active_tickets.php">Active Tickets</a></li>
+          <li><a href="http://localhost:9000/tickets/closed_tickets.php">Previous Tickets</a></li>
         </ul>
       </li>
       <li>
@@ -153,7 +153,7 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
   <h1 id = "active_tickets">Inbox</h1>  
   <?php
  foreach($tickets as $row){
-  $url1 = '../tickets/view_tickets.php?ticket_id=' . $row['ticket_id'];
+  $url1 = '../tickets/view_ticket.php?ticket_id=' . $row['ticket_id'];
   $url2 = '../background/assignments.php?ticket_id=' . $row['ticket_id'];
   $url3 = '../background/staff_close_tickets.php?ticket_id=' . $row['ticket_id'];
   $url4 = '../background/transfer_ticket_department.php?ticket_id=' . $row['ticket_id'];

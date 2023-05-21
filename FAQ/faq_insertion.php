@@ -44,9 +44,9 @@ if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSIO
       <li>
         <span>Tickets</span>
         <ul>
-          <li><a href="http://localhost:9000/tickets/ticket-form.php">New Ticket</a></li>
-          <li><a href="http://localhost:9000/tickets/active-tickets.php">Active Tickets</a></li>
-          <li><a href="http://localhost:9000/tickets/closed-tickets.php">Previous Tickets</a></li>
+          <li><a href="http://localhost:9000/tickets/ticket_form.php">New Ticket</a></li>
+          <li><a href="http://localhost:9000/tickets/active_tickets.php">Active Tickets</a></li>
+          <li><a href="http://localhost:9000/tickets/closed_tickets.php">Previous Tickets</a></li>
         </ul>
       </li>
       <li>

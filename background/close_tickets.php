@@ -21,7 +21,7 @@ if(isset($_SESSION['username']) && $client_id = $_SESSION['user_id']){
   $stmt->execute();
   $_SESSION['message'] = 'Your ticket has been closed successfully!';
   ob_clean();
-  header('Location: ../tickets/active-tickets.php');
+  header('Location: ../tickets/active_tickets.php');
   exit();
  }
 }

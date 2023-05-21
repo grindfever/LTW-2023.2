@@ -301,7 +301,7 @@ form .user-info .input-box input{
     width:100%;
   }
 
-  .title-input-box {
+  .ticket-input-box {
     margin-bottom: 10px;
   }
 
@@ -315,7 +315,7 @@ form .user-info .input-box input{
     font-weight: bold;
   }
 
-  input[name="title"],
+  input[name="title"],input[name="status"],input[name="priority"],input[name="hashtag"],input[name="department"],
   select {
     padding: 10px;
     border-radius: 5px;
@@ -324,20 +324,23 @@ form .user-info .input-box input{
     margin-bottom:1%;
   }
 
-  input[name="title"]{
+  input[name="title"],input[name="status"],input[name="priority"],input[name="hashtag"],input[name="department"]
+  {
    width:97%;
   }
 
-  input[name="title"],
+  input[name="title"],input[name="status"],input[name="priority"],input[name="hashtag"],input[name="department"],
   .title{
    margin-top:1%;
   }
 
   .description-input-box .description-text{
-   height:60em;
-   width:99%;
-   border-radius:5px;
-   margin-top:1%;
+    resize: vertical;
+    height:100px;
+    width:99%;
+    border-radius:5px;
+    margin-top:1%;
+    overflow: scroll;
   }
 
   .submission {

@@ -17,9 +17,9 @@ function fetch_messages_by_ticket_id($conn) {
 }
 
 function fetch_username_by_id($conn, $user_id) {
-  $stmt = $conn->prepare('SELECT username FROM Users WHERE user_id=' . $user_id);
+  $stmt = $conn->prepare('SELECT username FROM Users WHERE user_id = ' . $user_id);
   $stmt->execute();
-  $username = $stmt->fetchAll()[0]['username'];
+  $username = $stmt->fetch()[0];
 
   return $username;
 }
