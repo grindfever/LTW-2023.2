@@ -81,12 +81,8 @@ if(isset($_SESSION['username'])){
   <h2>Our Approach</h2>
   <p>
     At Healthy Habits, we promote a holistic approach to health, focusing on three key pillars: nutrition, fitness, and mindfulness. By incorporating balanced eating, regular physical activity, and mindfulness practices into your daily routine, you can achieve optimal well-being and live a fulfilling life.</p>
-<<<<<<< Updated upstream
-  <h2>Features and Benefits</h2>
-=======
    <div class ="healthyhabits-container">
     <h2>Features and Benefits:</h2>
->>>>>>> Stashed changes
   <ul>
     <li>Personalized meal plans and nutrition guidance</li>
     <li>Exercise routines tailored to your fitness level and goals</li>
@@ -94,19 +90,12 @@ if(isset($_SESSION['username'])){
     <li>Progress tracking and goal setting</li>
     <li>Community support and accountability</li>
   </ul>
-<<<<<<< Updated upstream
-  <p>
-    Whether you're looking to lose weight, boost energy levels, manage stress, or simply improve your overall health, Healthy Habits is here to support you every step of the way. Start your journey towards a healthier, happier you today!</p>
-</div>
-<footer>
-=======
   <img class="healthyhabits-img" src="../images/healthy.jpg" alt="healthyhabits">
 </div>
     <p>Whether you're looking to lose weight, boost energy levels, manage stress, or simply improve your overall health, Healthy Habits is here to support you every step of the way. Start your journey towards a healthier, happier you today!</p>
     <p>For any inquiries or assistance regarding Healthy Habits, please feel free to contact our support team at support@healthyhabits.com or call us at tel:+1-123-456-7890. </p>
 </div>
     <footer>
->>>>>>> Stashed changes
       <p>© Copyright 2021-2023 IT Ticket</p>
       <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
     </footer>

@@ -12,18 +12,10 @@ if(isset($_SESSION['username'])){
    </head>
    <body>
     <header class = "header1">
-<<<<<<< Updated upstream
-      <h1>IT Ticket<h1>
-      <h2>Here to help you solve all your tech problems!</h2>
-      <a href="http://localhost:9000/main.php" class="home-button"><img src="../images/home_icon.png" alt="Home"></a>
-=======
     <h1>IT Ticket<h1>
     <h2>Here to help you solve all your tech problems!</h2>
     <a href="http://localhost:9000/main.php" class="home-button"><img src="../images/home_icon.png" alt="Home"></a>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
       <div id = "login">
       <?php
        echo '<p>' . $_SESSION['username'] . '</p>';
