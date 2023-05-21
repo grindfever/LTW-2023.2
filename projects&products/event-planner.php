@@ -79,7 +79,7 @@ if(isset($_SESSION['username'])){
   <p>
     The Event Planner is a powerful tool designed to assist you in organizing and managing your events seamlessly. Whether you are planning a small gathering, a corporate conference, or a grand celebration, our Event Planner provides you with the necessary features and resources to ensure a successful and memorable event.</p>
     <div class="eventplanner-container">
-      <h2>Key Features :</h2>
+      <h2>Key Features:</h2>
       <ul>
      <li>Event creation and customization options</li>
      <li>Guest management and RSVP tracking</li>
