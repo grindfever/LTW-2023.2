@@ -27,14 +27,7 @@ if(isset($_SESSION['username'])){
         <span>My Profile</span>
         <ul>
           <li><a href="http://localhost:9000/profiles/my-profile.php">View Profile</a></li>
-          <li>
-            <span>Edit Profile</span>
-            <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
-            </ul>
-          </li>
+          <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
         </ul>
       </li>
       <li>
@@ -53,7 +46,7 @@ if(isset($_SESSION['username'])){
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/customer-service.php">Customer Service</a></li>
+          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -70,7 +63,14 @@ if(isset($_SESSION['username'])){
       <li>
        <span>FAQ</span>
        <ul>
-        <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
+        <li><a href="http://localhost:9000/FAQ/faq.php">FAQS</a></li>
+        <?php
+         if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent')){
+        ?>
+        <li><a href="http://localhost:9000/FAQ/faq_insertion.php">Update FAQS</a></li>
+        <?php
+        }
+        ?>
        </ul>
       </li>
       <?php
@@ -80,7 +80,7 @@ if(isset($_SESSION['username'])){
          <span>Staff</span>
          <ul>
           <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
-          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Staff Messages</a><li>
+          <li><a href ="http://localhost:9000/staff/staff_messages.php">Staff Messages</a><li>
           <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
          </ul>
         </li>
@@ -99,7 +99,7 @@ if(isset($_SESSION['username'])){
              <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
              <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
              <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
-             <li><a href="http://localhost:9000/management/customer-service.php">Customer Service</a></li>
+             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
              <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
             </ul>
           </li>
@@ -110,7 +110,7 @@ if(isset($_SESSION['username'])){
        }
       ?>
     </ul>
-    </nav>    
+    </nav>   
     <div class="Department">
       <h2>Network Support Department</h2>
       <p>The Network Support Department is responsible for providing technical support and maintaining the company's network infrastructure. Our main goal is to ensure that the company's network operates efficiently and securely, and that any issues or problems are addressed promptly.</p>

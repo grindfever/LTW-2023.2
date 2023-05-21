@@ -1,14 +1,23 @@
-const initialFormData = {
-  username: document.querySelector('#username').value || '',
-  first_name: document.querySelector('#first_name').value || '',
-  last_name: document.querySelector('#last_name').value || '',
-  email_address: document.querySelector('#email_address').value || '',
-  phone_number: document.querySelector('#phone_number').value || '',
-  home_address: document.querySelector('#home_address').value || '',
-  postal_code: document.querySelector('#postal_code').value || '',
-  password: document.querySelector('#password').value || '',
-  confirm_password: document.querySelector('#confirm_password').value || ''
-};
+// Function to save the form data
+function saveFormData() {
+  const formData = {
+    username: document.querySelector('#username').value || '',
+    first_name: document.querySelector('#first_name').value || '',
+    last_name: document.querySelector('#last_name').value || '',
+    email_address: document.querySelector('#email_address').value || '',
+    phone_number: document.querySelector('#phone_number').value || '',
+    home_address: document.querySelector('#home_address').value || '',
+    postal_code: document.querySelector('#postal_code').value || '',
+    password: document.querySelector('#password').value || '',
+    confirm_password: document.querySelector('#confirm_password').value || ''
+  };
+  sessionStorage.setItem('formData', JSON.stringify(formData));
+}
+
+// Function to delete the form data
+function deleteFormData() {
+  sessionStorage.removeItem('formData');
+}
 
 // Restore the form data if the user navigates back to the page
 window.addEventListener('load', function() {
@@ -27,19 +36,7 @@ window.addEventListener('load', function() {
 });
 
 // Save the form data when the user leaves the page
-window.addEventListener('beforeunload', function() {
-  const formData = {
-    username: document.querySelector('#username').value || '',
-    first_name: document.querySelector('#first_name').value || '',
-    last_name: document.querySelector('#last_name').value || '',
-    email_address: document.querySelector('#email_address').value || '',
-    phone_number: document.querySelector('#phone_number').value || '',
-    home_address: document.querySelector('#home_address').value || '',
-    postal_code: document.querySelector('#postal_code').value || '',
-    password: document.querySelector('#password').value || '',
-    confirm_password: document.querySelector('#confirm_password').value || ''
-  };
-  sessionStorage.setItem('formData', JSON.stringify(formData));
-});
+window.addEventListener('beforeunload', saveFormData);
+
 
   

@@ -59,14 +59,7 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
         <span>My Profile</span>
         <ul>
           <li><a href="http://localhost:9000/profiles/my-profile.php">View Profile</a></li>
-          <li>
-            <span>Edit Profile</span>
-            <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
-            </ul>
-          </li>
+          <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
         </ul>
       </li>
       <li>
@@ -85,7 +78,7 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
           <li><a href="http://localhost:9000/departments/web-development.php">Web Development</a></li>
           <li><a href="http://localhost:9000/departments/app-development.php">App Development</a></li>
           <li><a href="http://localhost:9000/departments/network-support.php">Network Support</a></li>
-          <li><a href="http://localhost:9000/departments/costumer-service.php">Costumer Service</a></li>
+          <li><a href="http://localhost:9000/departments/costomer-service.php">Costomer Service</a></li>
           <li><a href="http://localhost:9000/departments/security-issues.php">Security Issues</a></li>
         </ul>
       </li>
@@ -102,11 +95,43 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
       <li>
        <span>FAQ</span>
        <ul>
-        <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
+        <li><a href="http://localhost:9000/FAQ/faq.php">FAQS</a></li>
+        <?php
+         if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent')){
+        ?>
+        <li><a href="http://localhost:9000/FAQ/faq_insertion.php">Update FAQS</a></li>
+        <?php
+        }
+        ?>
        </ul>
       </li>
+      <?php
+       if($_SESSION['usertype'] == "agent" || $_SESSION['usertype'] == "admin"){
+        ?>
+        <li>
+         <span>Staff</span>
+         <ul>
+          <li><a href ="http://localhost:9000/staff/assigned_tickets.php">Assigned Tickets</a></li>
+          <li><a href ="http://localhost:9000/staff/staff_messages.php">Staff Messages</a><li>
+          <li><a href = "http://localhost:9000/staff/ticket-inbox.php">Ticket Inbox</a><li>
+         </ul>
+        </li>
+      <?php
+       }
+       if($_SESSION['usertype'] == "admin"){
+      ?>
+       <li>
+        <span>Management</span>
+        <ul>
+         <li><a href="http://localhost:9000/management/user_managment.php">User Managment</a></li>
+         <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+        </ul>    
+       </li>
+      <?php
+       }
+      ?>
     </ul>
-  </nav>
+  </nav>  
   <div class = "ticket-form">
   <form>
     <h1 id = "ticket-form">My Ticket</h1>
@@ -115,8 +140,7 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
         <span class = "title">Title</span>
         <input type = "text" name = "title" value="<?php echo $ticket['ticket_title']; ?>" disabled>
       </div>
-      <div class="department-input-box">
-       <span class="department">Department</span>
+      <label for="Department">Department:</label>
        <select name="department" disabled>
         <option value="Software Technical Support" <?php if ($ticket_department_name == 'Software Technical Support') echo 'selected'; ?>>Software Technical Support</option>
         <option value="Hardware Technical Support" <?php if ($ticket_department_name == 'Hardware Technical Support') echo 'selected'; ?>>Hardware Technical Support</option>
@@ -126,11 +150,9 @@ if((isset($_SESSION['username']) && $_SESSION['user_id'] == $client_id) || ($_SE
         <option value="App Development" <?php if ($ticket_department_name == 'App Development') echo 'selected'; ?>>App Development</option>
         <option value="Web Development" <?php if ($ticket_department_name == 'Web Development') echo 'selected'; ?>>Web Development</option>
        </select>
-      </div>
-
       <div class = "description-input-box">
         <span class = "description">Description</span>
-        <textarea class = "description-text" name = "description" disabled><?php echo $ticket['ticket_description']; ?></textarea>
+        <textarea class = "description-text" id = "description_text" name = "description" disabled><?php echo $ticket['ticket_description']; ?></textarea>
       </div>
       <div class = "submission">
         <input type = "submit" name = "submit" value = "Submit" disabled>

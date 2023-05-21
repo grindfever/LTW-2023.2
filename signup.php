@@ -162,7 +162,7 @@ if(isset($_POST['submit'])){
   $postal_code = $_POST['Postal_Code'];
   $confirmed = $_POST['Confirmed_Password'];
   $role = 'client';
-
+  $date = date('d/m/Y H:i');
  if($first_name == '' || $last_name == ''){
   $error_message = 'You have to fill in all the required fields!';
   $_SESSION['message'] = $error_message;
@@ -207,9 +207,10 @@ if(isset($_POST['submit'])){
      $stmt->bindValue(':home_address', $address);
      $stmt->bindValue(':postal_code', $postal_code);
      $stmt->bindValue(':usertype', $role);
-     $stmt->bindValue(':registration_time', 'NOW()');
+     $stmt->bindValue(':registration_time', $date);
      $stmt->execute();
      session_destroy();
+     echo '<script>deleteFormData();</script>';
      ob_clean();
      header('Location: main.php');
      exit();

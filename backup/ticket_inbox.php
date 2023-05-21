@@ -1,7 +1,28 @@
 <?php
 session_start();
 $conn = new PDO('sqlite:../database.db');
-include('../filter_functions.php');
+function filterTickets($tickets, $departmentValue, $priorityValue, $statusValue) {
+    if ($departmentValue !== 'all') {
+      $tickets = array_filter($tickets, function ($ticket) use ($departmentValue) {
+        return $ticket['department_id'] === $departmentValue;
+      });
+    }
+  
+    if ($priorityValue !== 'all') {
+      $tickets = array_filter($tickets, function ($ticket) use ($priorityValue) {
+        return $ticket['priority'] === $priorityValue;
+      });
+    }
+  
+    if ($statusValue !== 'all') {
+      $tickets = array_filter($tickets, function ($ticket) use ($statusValue) {
+        return $ticket['status'] === $statusValue;
+      });
+    }
+  
+    return $tickets;
+  }
+  
 if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['usertype'] == 'agent')){
  if(isset($_SESSION['redirect'])){
   unset($_SESSION['redirect']);
@@ -49,6 +70,16 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
  $stmt = $conn->prepare('SELECT * FROM Departments');
  $stmt->execute();
  $departments = $stmt->fetchAll();
+ $filteredTickets = $tickets;
+  $departmentValue = isset($_POST['departmentValue']) ? $_POST['departmentValue'] : 'all';
+  $priorityValue = isset($_POST['priorityValue']) ? $_POST['priorityValue'] : 'all';
+  $statusValue = isset($_POST['statusValue']) ? $_POST['statusValue'] : 'all';
+  
+  $filteredTickets = filterTickets($tickets, $departmentValue, $priorityValue, $statusValue);
+  
+  echo json_encode([
+    'activeTickets' => $filteredTickets
+  ]);
  ?>
  <!DOCTYPE html>
 <html>
@@ -69,7 +100,15 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
         <span>My Profile</span>
         <ul>
           <li><a href="http://localhost:9000/profiles/my-profile.php">View Profile</a></li>
-          <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+          <li>
+            <span>Edit Profile</span>
+            <ul>
+             <li><a href="#" onclick="showModal('change_username')">Change Username</a></li>
+             <li><a href="#" onclick="showModal('change_email')">Change Email</a></li>
+             <li><a href="#" onclick="showModal('change_password')">Change Password</a></li>
+             <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li>
@@ -133,8 +172,19 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
        <li>
         <span>Management</span>
         <ul>
-         <li><a href="http://localhost:9000/management/user_managment.php">User Managment</a></li>
-         <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+          <li>
+            <span>Departments</span>
+            <ul>
+             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
+             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
+             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
+             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
+             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
+             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
+            </ul>
+          </li>
+          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
         </ul>    
        </li>
       <?php
@@ -144,14 +194,12 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
   </nav>  
   <h1 id = "active_tickets">Inbox</h1>
 
-  <form action="#" method="POST" id = "ticket-filter-form">
   <label for="filter-type-select">Select Filter Type:</label>
   <select id="filter-type-select" name="filterType">
     <option value="none">None</option>
     <option value="department">Department</option>
     <option value="priority">Priority</option>
     <option value="status">Status</option>
-    <option value="registration-time">Registration Date</option>
   </select>
 
   <div id="filter-options">
@@ -184,49 +232,7 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
       </select>
     </div>
   </div>
-
-  <div id="registration-time-filter" class="filter">
-      <label for="registration-time-select">Filter by Registration Time:</label>
-      <select id="registration-time-select" name="registrationtimeValue">
-        <option value="all">All</option>
-        <option value="today">Today</option>
-        <option value="yesterday">Yesterday</option>
-        <option value="2 days ago">Two days ago</option>
-        <option value="last 7 days">This Week</option>
-        <option value="last 2 weeks">In Last Two Weeks</option>
-        <option value="last month">In the Last Month</option>
-        <option value="last 2 months">In the Last 2 Months</option>
-        <option value="last year">In the Last Year</option>
-      </select>
-    </div>
-  <button type="submit" name="apply-filter-button">Apply Filter</button>
-</form>
   <?php
- $filteredTickets = $tickets;
- if (isset($_POST['apply-filter-button'])) {
-  $filterType = $_POST['filterType'];
-  $departmentValue = $_POST['departmentValue'];
-  $priorityValue = $_POST['priorityValue'];
-  $statusValue = $_POST['statusValue'];
-  $registrationtimeValue = $_POST['registrationtimeValue'];
-  if ($filterType === 'department') {
-    if ($departmentValue !== 'all') {
-      $filteredTickets = filterTicketsByDepartment($tickets, $departmentValue);
-    }
-  } elseif ($filterType === 'priority') {
-    if ($priorityValue !== 'all') {
-      $filteredTickets = filterTicketsByPriority($tickets, $priorityValue);
-    }
-  } elseif ($filterType === 'status') {
-    if ($statusValue !== 'all') {
-      $filteredTickets = filterTicketsByStatus($tickets, $statusValue);
-    }
-  } elseif ($filterType === 'registration-time') {
-    if ($registrationtimeValue !== 'all') {
-      $filteredTickets = filterTicketsByRegistrationTime($tickets, $registrationtimeValue);
-    }
-  }
- }
  foreach($filteredTickets as $row){
   $url1 = '../tickets/view_tickets.php?ticket_id=' . $row['ticket_id'];
   $url2 = '../background/assignments.php?ticket_id=' . $row['ticket_id'];
@@ -261,12 +267,6 @@ if(isset($_SESSION['username']) && ($SESSION['usertype'] = 'admin' || $SESSION['
   if($row['ticket_status'] == 'assigned'){
    echo '<h1> Priority </h1>';
    echo '<p>' . $row['ticket_priority'] . '</p>';
-   $stmt = $conn->prepare('SELECT * FROM Assignments WHERE ticket_id = ?');
-   $stmt->bindParam(1,$row['ticket_id']);
-   $stmt->execute();
-   $assigned_agents = $stmt->fetchAll();
-   echo '<h1> Number of Assigned Agents </h1>';
-   echo '<p>' . count($assigned_agents) . '</p>';
   }
   echo '<h1> Time </h1>';
   echo '<p>' . $row['ticket_register_time'] . '</p>';
@@ -366,7 +366,7 @@ function confirmCloseTicket(url) {
 </footer>
 <script src="../js_files/click.js"></script>
 <script src="../js_files/close_ticket_confirmation.js"></script>
-<script src="../js_files/filter_form.js"></script>
+<script src="../js_files/filters.js"></script>
 </body>
 <?php 
 }

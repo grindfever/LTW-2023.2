@@ -216,11 +216,11 @@ function is_valid_username($username) {
       <li>
         <span>Projects and Products</span>
         <ul>
-          <li><a href="http://localhost:9000/projects&products/project-a.php">Project A</a></li>
-          <li><a href="http://localhost:9000/projects&products/project-b.php">Project B</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-a.php">Product A</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-b.php">Product B</a></li>
-          <li><a href="http://localhost:9000/projects&products/product-c.php">Product C</a></li>
+          <li><a href="http://localhost:9000/projects&products/my-mentor.php">My Mentor</a></li>
+          <li><a href="http://localhost:9000/projects&products/meal-match.php">Meal Match</a></li>
+          <li><a href="http://localhost:9000/projects&products/event-planner.php">Event Planner</a></li>
+          <li><a href="http://localhost:9000/projects&products/smart-gym.php">Smart Gym</a></li>
+          <li><a href="http://localhost:9000/projects&products/healthy-habits.php">Healthy Habits</a></li>
         </ul>
       </li>
       <li>
@@ -254,19 +254,8 @@ function is_valid_username($username) {
        <li>
         <span>Management</span>
         <ul>
-          <li>
-            <span>Departments</span>
-            <ul>
-             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
-             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
-             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
-             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
-             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
-             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
-             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
-            </ul>
-          </li>
-          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+         <li><a href="http://localhost:9000/management/user_managment.php">User Managment</a></li>
+         <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
         </ul>    
        </li>
       <?php
@@ -363,6 +352,10 @@ function is_valid_username($username) {
          <span class = "info">New Password</span>
          <input type = "password" name = "new_password">
         </div>
+        <div class = "info_changes">
+         <span class = "info">Confirm Password</span>
+         <input type = "password" name = "confirm_password">
+        </div>
         <div class = "button">
          <input type = "submit" name = "change_password" value = "Change">
         </div>
@@ -444,6 +437,51 @@ function is_valid_username($username) {
          }
          else{
           $_SESSION['pop_up_message'] = 'Your new email does not have the correct format! Please try again.';
+          ob_clean();
+          header('Location:main.php');
+          exit();
+         }
+        }
+        else{
+         $_SESSION['pop_up_message'] = 'Invalid username/email or password! Please try again!';
+         ob_clean();
+         header('Location:main.php');
+         exit();
+        }
+        
+      }
+      if(isset($_POST['change_password'])){
+        $current_username_or_email = $_POST['username_or_email'];
+        $current_password = $_POST['password'];
+        $new_password = $_POST['new_password'];
+        $confirm_new_password = $_POST['confirm_password'];
+        $stmt = $conn->prepare('SELECT passwrd FROM Users WHERE user_id = ?');
+        $user_id = $_SESSION['user_id'];
+        $stmt->bindParam(1,$user_id);
+        $stmt->execute();
+        $verification_password = $stmt->fetchColumn();
+        if(($_SESSION['email'] == $current_username_or_email) || ($_SESSION['username'] == $current_username_or_email) && password_verify($current_password,$verification_password)){
+         if($new_password == $confirm_new_password){
+          if(is_valid_password($new_password)){
+           $stmt = $conn->prepare('UPDATE Users SET passwrd = ? WHERE user_id = ?');
+           $new_password = password_hash($new_password,PASSWORD_DEFAULT);
+           $stmt->bindParam(1,$new_password);
+           $stmt->bindParam(2,$user_id);
+           $stmt->execute();
+           $_SESSION['pop_up_message'] = 'Your password was successfully changed!';
+           ob_clean();
+           header('Location:main.php');
+           exit();
+          }
+          else{
+           $_SESSION['pop_up_message'] = 'Your new password must have at least 8 characters, a lowercase letter, a number and an uppercase letter! Please try again.';
+           ob_clean();
+           header('Location:main.php');
+           exit();
+          }
+         }
+         else{
+          $_SESSION['pop_up_message'] = 'Your new password and its confirmation do not match! Please try again.';
           ob_clean();
           header('Location:main.php');
           exit();

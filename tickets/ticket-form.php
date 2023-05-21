@@ -30,14 +30,7 @@ if(isset($_SESSION['username'])){
         <span>My Profile</span>
         <ul>
           <li><a href="http://localhost:9000/profiles/my-profile.php">View Profile</a></li>
-          <li>
-            <span>Edit Profile</span>
-            <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
-            </ul>
-          </li>
+          <li><a href = "http://localhost:9000/background/logout.php">Logout</a></li>
         </ul>
       </li>
       <li>
@@ -73,7 +66,14 @@ if(isset($_SESSION['username'])){
       <li>
        <span>FAQ</span>
        <ul>
-        <li><a href="http://localhost:9000/faq.php">FAQ</a></li>
+        <li><a href="http://localhost:9000/FAQ/faq.php">FAQS</a></li>
+        <?php
+         if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSION['usertype'] == 'agent')){
+        ?>
+        <li><a href="http://localhost:9000/FAQ/faq_insertion.php">Update FAQS</a></li>
+        <?php
+        }
+        ?>
        </ul>
       </li>
       <?php
@@ -94,19 +94,8 @@ if(isset($_SESSION['username'])){
        <li>
         <span>Management</span>
         <ul>
-          <li>
-            <span>Departments</span>
-            <ul>
-             <li><a href="http://localhost:9000/management/software-ts.php">Software Technical Support</a></li>
-             <li><a href="http://localhost:9000/management/hardware-ts.php">Hardware Technical Support</a></li>
-             <li><a href="http://localhost:9000/management/web-development.php">Web Development</a></li>
-             <li><a href="http://localhost:9000/management/app-development.php">App Development</a></li>
-             <li><a href="http://localhost:9000/management/network-support.php">Network Support</a></li>
-             <li><a href="http://localhost:9000/management/costomer-service.php">Costomer Service</a></li>
-             <li><a href="http://localhost:9000/management/security-issues.php">Security Issues</a></li>
-            </ul>
-          </li>
-          <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
+         <li><a href="http://localhost:9000/management/user_managment.php">User Managment</a></li>
+         <li><a href="http://localhost:9000/management/requests.php">Requests & Complaints Inbox</a></li>
         </ul>    
        </li>
       <?php
@@ -147,6 +136,8 @@ if(isset($_SESSION['username'])){
          $ticket_title = $_POST['title'];
          $ticket_department = $_POST['department'];
          $description = $_POST['description'];
+         $ticket_title = trim($ticket_title);
+         $description = trim($description);
          $ticket_description = add_paragraphs($_POST['description']);
          $ticket_status = 'open';
          $time = date('d/m/Y H:i');
@@ -192,7 +183,7 @@ if(isset($_SESSION['username'])){
   <footer>
     <p>© Copyright 2021-2023 IT Ticket</p>
     <p><a href = "http://localhost:9000/privacy/privacy_policy.php">Privacy Policy</a></p>
-   </footer>
+  </footer>
   <script src="../js_files/click.js"></script>
   <script src="../js_files/save_ticket_input.js"></script>
  </body>

@@ -15,7 +15,7 @@
 } 
 
 .signup{
- height:65%;
+ height:70%;
  width:100%;
  margin-bottom:8%;
  max-width:1000px;
@@ -52,14 +52,14 @@ form .user-info .input-box input{
 .register .signup .button {
  display: flex;
  justify-content: center;
- margin-top:25px;
+ margin-top:10px;
  }
 
 .register .signup .button input[type="submit"] {
  height: 40px;
  width: 100%;
  max-width: 200px;
- background-color: #4CAF50;
+ background-color: #191c19;
  color: white;
  font-size: 1.2rem;
  border: none;
@@ -70,6 +70,8 @@ form .user-info .input-box input{
  form p {
   display:flex;
   justify-content:center;
+  margin-top:15px;
+  color:red;
  }
 
  .header1 {
@@ -147,18 +149,22 @@ form .user-info .input-box input{
   text-decoration: none;
 }
 
- footer{
+footer{
+  margin:0;
+  margin-top: auto;
+  padding-left: 10px;
   background-color: #87CEEB;
+  border:solid 3px #647c7c ;
+  border-radius:5px;
  }
 
- #main_menu {
-    width: 100%;
-    background-color: #4CAF50;
-    border:5px solid #5E5E5E;
-    border-radius:5px;
-    border-right:0;
-    padding:10px;
-  }
+  #main_menu {
+  width: 100%;
+  background-color: #4CAF50;
+  box-sizing: border-box;
+  border:5px solid #333;
+  padding:10px;
+}
   
   #main_menu ul {
     list-style: none;
@@ -184,6 +190,7 @@ form .user-info .input-box input{
   #main_menu ul ul {
     display: none;
     position: absolute;
+    z-index:1;
     top: 100%;
     left: 0;
     background-color: #4CAF50;
@@ -245,17 +252,16 @@ form .user-info .input-box input{
   text-decoration: underline;
 }
 
-  .Projects{
-    background-color: #647c7c;
-    border-top: 3px solid #070707;
-    border-right: 3px solid #070707;
-    border-left: 3px solid #070707;
-    border-bottom: 3px solid #070707;
-    border-radius: 10px;
-    padding:10px;
-    margin-left:10px;
-    margin-right:10px;
-  }
+.Projects{
+  background-color: #647c7c;
+  border-top: 3px solid #070707;
+  border-right: 3px solid #070707;
+  border-left: 3px solid #070707;
+  border-bottom: 3px solid #070707;
+  border-radius: 10px;
+  padding:10px;
+  margin-bottom: 20px;
+}
   .Projects h1{
     color: #fff;
     padding-top:10px;
@@ -303,14 +309,17 @@ form .user-info .input-box input{
     margin-bottom: 10px;
   }
 
-  .ticket-form {
+   .ticket-form {
     width: 60%;
+    color: #fff;
     margin-top:2%;
     margin-left:auto;
     margin-right:auto;
-    margin-bottom:auto;
-    border: 1px solid #ccc;
-    padding: 10px;
+    margin-bottom:50px;
+    border: 5px double #333;
+    border-radius:5px;
+    padding: 15px;
+    background-color: #333;
   }
 
   #ticket-form{
@@ -341,7 +350,7 @@ form .user-info .input-box input{
   select {
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #fff;
     margin-top:1%;
     margin-bottom:1%;
   }
@@ -354,6 +363,17 @@ form .user-info .input-box input{
   .title{
    margin-top:1%;
   }
+  input:disabled {
+    background-color: #fff;
+    }
+    textarea:disabled {
+     background-color: #fff;
+  }
+    textarea.description-text{
+       font-size: 20px;
+       max-height: 600px;
+    }
+  
 
   .description-input-box .description-text{
    height:60em;
@@ -379,13 +399,28 @@ form .user-info .input-box input{
   #active_tickets {
     text-align: center;
     margin-top: 2rem;
+    text-decoration: underline ;
   }
 
   .active-ticket {
     margin: 2rem auto;
-    max-width: 600px;
+    width: 60%;
     padding: 2rem;
-    border: 1px solid #ddd;
+    border: 5px double #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  #active_tickets {
+    text-align: center;
+    margin-top: 2rem;
+    text-decoration: underline ;
+  }
+
+  .active-ticket {
+    margin: 2rem auto;
+    max-width: 60%;
+    padding: 2rem;
+    border: 5px double #333;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
@@ -656,6 +691,219 @@ form .user-info .input-box input{
 .change_user_data{
  display:none;
 }
+
+#ticket-filter-form {
+  position: absolute;
+  z-index:0;
+  top: 210px;
+  right: 10px;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width:15%;
+}
+
+#filter-type-select {
+  margin-right: 10px;
+}
+
+.filter {
+  display: none;
+}
+
+.faq-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.faq-show {
+  width: 100%;
+  max-width: 600px;
+  margin:auto;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#faq_show_question {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#faq_show_answer {
+  margin-bottom: 10px;
+}
+
+.faq-description {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.faq-description p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.faq-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.upvote-btn,
+.downvote-btn,
+.copy-btn {
+  padding: 5px 10px;
+  background-color: #eee;
+  border: none;
+  cursor: pointer;
+}
+
+.copy-btn {
+  background-color: #ccc;
+}
+
+.upvote-btn:hover,
+.downvote-btn:hover,
+.copy-btn:hover {
+  background-color: #ddd;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+#search-input {
+  padding: 8px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+#search-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #f5f5f5;
+}
+
+#admin_actions{
+ display:flex;
+ flex-direction:column;
+ gap:10px;
+}
+
+.projprod{
+  padding:10px;
+}
+
+.projprod h1{
+  text-decoration: underline;
+}
+
+.eventplanner-container {
+  display: flex;
+  align-items: center;
+}
+
+.eventplanner-img {
+  width: 34%;
+  margin-left: 600px;
+}
+.eventplanner-container ul {
+  margin-left: 100px;
+}
+.mymentor-container{
+  display: flex;
+  align-items: center;
+}
+.mymentor-img{
+  width: 25%;
+  margin-left: 600px;
+}
+.mymentor-container ul{
+  margin-left:100px;
+  line-height: 2;
+  font-size:24px;
+}
+.mealmatch-container{
+  display: flex;
+  align-items: center;
+}
+.mealmatch-img{
+  width: 31%;
+  margin-left: 600px;
+}
+.mealmatch-container ul{
+  margin-left:100px;
+  line-height: 2;
+  font-size:24px;
+}
+.smartgym-container{
+  display: flex;
+  align-items: center;
+}
+.smartgym-img{
+  width: 23%;
+  margin-left: 400px;
+}
+.smartgym-container ul{
+  margin-left:100px;
+  font-size: 24px;
+  line-height: 2;
+}
+.healthyhabits-container{
+  display: flex;
+  align-items: center;
+  padding-bottom: 30px;
+}
+.healthyhabits-img{
+  width: 24%;
+  margin-left: 400px;
+}
+.healthyhabits-container ul{
+  margin-left:100px;
+  font-size: 24px;
+  line-height: 2;
+}
+
+
+
 
 
 

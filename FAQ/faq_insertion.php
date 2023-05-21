@@ -30,14 +30,7 @@ if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSIO
         <span>My Profile</span>
         <ul>
           <li><a href="http://localhost:9000/profiles/my-profile.php">View Profile</a></li>
-          <li>
-            <span>Edit Profile</span>
-            <ul>
-              <li><a href="http://localhost:9000/profiles/change-username.php">Change Username</a></li>
-              <li><a href="http://localhost:9000/profiles/change-password.php">Change Password</a></li>
-              <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
-            </ul>
-          </li>
+          <li><a href="http://localhost:9000/background/logout.php">Logout</a></li>
         </ul>
       </li>
       <li>
@@ -161,7 +154,7 @@ if(isset($_SESSION['username']) && ($_SESSION['usertype'] == 'admin' || $_SESSIO
     else{
      $stmt = $conn->prepare('INSERT INTO FAQS(question,answer) VALUES(?,?)');
      $stmt->bindParam(1,$question);
-     $stmt->bindParam(2,$answer);
+     $stmt->bindParam(2,$answer_w_paragraphs);
      $stmt->execute();
      $_SESSION['message'] = 'The FAQ database has been successfully updated with your question!';
      ob_clean();
