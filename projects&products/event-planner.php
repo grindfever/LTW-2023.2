@@ -78,20 +78,17 @@ if(isset($_SESSION['username'])){
   <h1>About Event Planner</h1>
   <p>
     The Event Planner is a powerful tool designed to assist you in organizing and managing your events seamlessly. Whether you are planning a small gathering, a corporate conference, or a grand celebration, our Event Planner provides you with the necessary features and resources to ensure a successful and memorable event.</p>
-
-
-   
     <div class="eventplanner-container">
-       <h2>Key Features :</h2>
-  <ul>
-    <li>Event creation and customization options</li>
-    <li>Guest management and RSVP tracking</li>
-    <li>Task management and to-do lists</li>
-    <li>Budget tracking and expense management</li>
-    <li>Vendor management and collaboration</li>
-    <li>Event promotion and marketing tools</li>
-    <li>Real-time communication and updates</li>
-  </ul>
+      <h2>Key Features :</h2>
+      <ul>
+     <li>Event creation and customization options</li>
+     <li>Guest management and RSVP tracking</li>
+     <li>Task management and to-do lists</li>
+     <li>Budget tracking and expense management</li>
+     <li>Vendor management and collaboration</li>
+     <li>Event promotion and marketing tools</li>
+     <li>Real-time communication and updates</li>
+     </ul>
   <img class="eventplanner-img" src="../images/event.png" alt="wedding plan">
 </div>
   <h2>How It Works</h2>
